@@ -7,6 +7,7 @@ const login = () => {
         <h1 className="">Login</h1>
         <input type="text" />
       </form>
+      <button className="btn">Hello</button>
     </div>
   );
 };

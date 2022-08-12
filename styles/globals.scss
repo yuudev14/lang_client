@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.btn {
+  @apply px-6 py-3 bg-cyan-500 rounded-xl shadow-button-not-clicked m-7 active:shadow-button-clicked active:translate-y-[4px] hover:bg-cyan-400;
+}

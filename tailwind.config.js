@@ -7,8 +7,8 @@ module.exports = {
   theme: {
     extend: {
       boxShadow: {
-        "button-not-clicked": "0 9px #999",
-        "button-clicked": "0 5px #666",
+        "button-not-clicked": "0 7px #999",
+        "button-clicked": "0 3px #666",
       },
     },
   },

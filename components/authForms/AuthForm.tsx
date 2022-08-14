@@ -2,6 +2,7 @@ import React from "react";
 import { SubmitHandler, UseFormReturn } from "react-hook-form";
 import { authInputType } from "../../types/types";
 import AuthInput from "./AuthInput";
+import Link from "next/link";
 
 type authFormPropTypes = {
   submitHandler: SubmitHandler<any>;
@@ -34,7 +35,27 @@ const AuthForm = ({
           input={input}
         />
       ))}
-      <button className="btn mt-3">{authType}</button>
+      <input type="submit" className="btn mt-3" value={authType} />
+
+      {authType === "Login" ? (
+        <div>
+          <p className="text-center mt-4">
+            {"Don't"} have an account yet?{" "}
+            <Link href="/register">
+              <a className="text-red-700 underline">register</a>
+            </Link>
+          </p>
+        </div>
+      ) : (
+        <div>
+          <p className="text-center mt-4">
+            Already have an account?{" "}
+            <Link href="/login">
+              <a className="text-red-700 underline">login</a>
+            </Link>
+          </p>
+        </div>
+      )}
     </form>
   );
 };

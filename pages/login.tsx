@@ -2,6 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import AuthForm from "../components/authForms/AuthForm";
 
 type loginFormStateType = {
   usernameOrEmail: string;
@@ -15,12 +16,21 @@ const yupSchema = yup
   })
   .required();
 
+const loginInputs = [
+  {
+    type: "text",
+    name: "usernameOrEmail",
+    placeholder: "Username Or Email",
+  },
+  {
+    type: "password",
+    name: "password",
+    placeholder: "Password",
+  },
+];
+
 const Login = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<loginFormStateType>({
+  const reactHookForm = useForm<loginFormStateType>({
     resolver: yupResolver(yupSchema),
   });
 
@@ -29,33 +39,11 @@ const Login = () => {
   };
   return (
     <main>
-      <form
-        className="form hover:border-gray-300"
-        onSubmit={handleSubmit(login)}>
-        <h1 className="text-3xl font-bold text-center mb-10">Login</h1>
-        <input
-          type="text"
-          className="input-text"
-          placeholder="Username or Email"
-          {...register("usernameOrEmail")}
-        />
-
-        {errors.usernameOrEmail && (
-          <p className="ml-2 text-red-500">{errors.usernameOrEmail.message}</p>
-        )}
-
-        <input
-          type="password"
-          className="input-text"
-          placeholder="Password"
-          {...register("password")}
-        />
-
-        {errors.password && (
-          <p className="ml-2 text-red-500">{errors.password.message}</p>
-        )}
-        <button className="btn mt-3">Login</button>
-      </form>
+      <AuthForm
+        submitHandler={login}
+        reactHookForm={reactHookForm}
+        loginInputs={loginInputs}
+      />
     </main>
   );
 };

@@ -43,6 +43,7 @@ const Login = () => {
         submitHandler={login}
         reactHookForm={reactHookForm}
         loginInputs={loginInputs}
+        authType="Login"
       />
     </main>
   );

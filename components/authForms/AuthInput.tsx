@@ -1,8 +1,9 @@
 import React from "react";
+import { UseFormRegister } from "react-hook-form";
 import { authInputType } from "../../types/types";
 
 type authInputProps = {
-  register: any;
+  register: UseFormRegister<any>;
   errors: any;
   input: authInputType;
 };

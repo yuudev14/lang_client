@@ -2,60 +2,67 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import AuthForm from "../components/authForms/AuthForm";
 
-type loginFormStateType = {
+type registerFormStateType = {
   usernameOrEmail: string;
   password: string;
 };
 
 const yupSchema = yup
   .object({
-    usernameOrEmail: yup.string().required(),
+    username: yup.string().required(),
+    email: yup.string().email("input must be email").required(),
+    firstName: yup.string().required(),
+    lastName: yup.string().required(),
     password: yup.string().required(),
   })
   .required();
 
+const registerInputs = [
+  {
+    type: "text",
+    name: "firstName",
+    placeholder: "First Name",
+  },
+  {
+    type: "text",
+    name: "lastName",
+    placeholder: "Last Name",
+  },
+  {
+    type: "text",
+    name: "username",
+    placeholder: "Username",
+  },
+  {
+    type: "text",
+    name: "email",
+    placeholder: "Email",
+  },
+  {
+    type: "password",
+    name: "password",
+    placeholder: "Password",
+  },
+];
+
 const Register = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<loginFormStateType>({
+  const reactHookForm = useForm<registerFormStateType>({
     resolver: yupResolver(yupSchema),
   });
 
-  const login = (values: loginFormStateType) => {
+  const register = (values: registerFormStateType) => {
     console.log(values);
   };
   return (
     <main>
-      <form
-        className="form hover:border-gray-300"
-        onSubmit={handleSubmit(login)}>
-        <h1 className="text-3xl font-bold text-center mb-10">Login</h1>
-        <input
-          type="text"
-          className="input-text"
-          placeholder="Username or Email"
-          {...register("usernameOrEmail")}
-        />
-
-        {errors.usernameOrEmail && (
-          <p className="ml-2 text-red-500">{errors.usernameOrEmail.message}</p>
-        )}
-
-        <input
-          type="password"
-          className="input-text"
-          placeholder="Password"
-          {...register("password")}
-        />
-
-        {errors.password && (
-          <p className="ml-2 text-red-500">{errors.password.message}</p>
-        )}
-        <button className="btn mt-3">Login</button>
-      </form>
+      <AuthForm
+        submitHandler={register}
+        reactHookForm={reactHookForm}
+        loginInputs={registerInputs}
+        authType="Register"
+      />
     </main>
   );
 };

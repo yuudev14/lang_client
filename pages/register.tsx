@@ -3,9 +3,15 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import AuthForm from "../components/authForms/AuthForm";
+import { useDispatch } from "react-redux";
+import { registerAction } from "../store/slicers/user/actions";
+import { useRouter } from "next/router";
 
-type registerFormStateType = {
-  usernameOrEmail: string;
+export type registerFormStateType = {
+  username: string;
+  email: string;
+  firstName: string;
+  lastName: string;
   password: string;
 };
 
@@ -52,8 +58,26 @@ const Register = () => {
     resolver: yupResolver(yupSchema),
   });
 
-  const register = (values: registerFormStateType) => {
-    console.log(values);
+  const dispatch = useDispatch<any>();
+  const router = useRouter();
+
+  const register = async (values: registerFormStateType) => {
+    try {
+      const registerDispatch = await dispatch(registerAction(values));
+      if ("error" in registerDispatch.payload) {
+        const error = registerDispatch.payload.error;
+        for (const e in error) {
+          reactHookForm.setError(e as any, {
+            type: "exist already",
+            message: error[e],
+          });
+        }
+      } else {
+        router.push("/");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <main>

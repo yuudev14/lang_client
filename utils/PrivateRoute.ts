@@ -6,13 +6,12 @@ const PrivateRoute = (gssp: GetServerSideProps) => {
   return async (ctx: GetServerSidePropsContext) => {
     const { req } = ctx;
     try {
-      const isAuth = await get("/api/auth/verify", {
+      await get("/api/auth/verify", {
         headers: {
           Cookie: req.headers.cookie,
         },
       });
-
-      console.log(isAuth);
+      return gssp(ctx);
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.log(error.response?.data);
@@ -26,7 +25,6 @@ const PrivateRoute = (gssp: GetServerSideProps) => {
         },
       };
     }
-    return gssp(ctx);
   };
 };
 

@@ -1,4 +1,6 @@
-import type { NextPage } from "next";
+import type { GetServerSideProps, NextPage } from "next";
+import { defaultGetServerSidePropFunc } from "../utils/common";
+import PrivateRoute from "../utils/PrivateRoute";
 
 const Home: NextPage = () => {
   return (
@@ -8,4 +10,7 @@ const Home: NextPage = () => {
   );
 };
 
+export const getServerSideProps: GetServerSideProps = PrivateRoute(
+  defaultGetServerSidePropFunc
+);
 export default Home;

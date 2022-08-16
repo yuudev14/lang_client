@@ -1,4 +1,7 @@
+import { GetServerSideProps } from "next";
 import React from "react";
+import PrivateRoute from "../utils/PrivateRoute";
+import { defaultGetServerSidePropFunc } from "../utils/common";
 
 const VerifyEmail = () => {
   return (
@@ -22,4 +25,7 @@ const VerifyEmail = () => {
   );
 };
 
+export const getServerSideProps: GetServerSideProps = PrivateRoute(
+  defaultGetServerSidePropFunc
+);
 export default VerifyEmail;

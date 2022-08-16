@@ -73,7 +73,7 @@ const Register = () => {
           });
         }
       } else {
-        router.push("/");
+        router.push("/verify-email");
       }
     } catch (error) {
       console.log(error);

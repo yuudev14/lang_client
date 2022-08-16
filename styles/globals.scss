@@ -7,9 +7,12 @@
 }
 
 .form {
-  @apply absolute top-40 left-1/2 -translate-x-1/2 bg-white px-5 py-10 max-w-lg w-full m-2 flex flex-col gap-2 rounded-2xl border-solid border-[5px] shadow-md;
+  @apply absolute top-10 left-1/2 -translate-x-1/2 bg-white px-5 py-10 max-w-lg w-full m-2 flex flex-col gap-2 rounded-2xl border-solid border-[5px] shadow-md;
 }
 
+.card {
+  @apply bg-white rounded-2xl border-solid border-[5px] shadow-md;
+}
 .input-text {
   @apply outline-none focus:border-gray-300 rounded-xl py-2 px-5 border-solid border-4 hover:border-gray-300 bg-gray-50;
 }

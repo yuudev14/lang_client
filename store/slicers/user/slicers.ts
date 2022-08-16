@@ -2,13 +2,24 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { userType } from "../../../types/types";
 import { loginAction, registerAction, verifyTokenAction } from "./actions";
 
+const initialUser = {
+  username: "",
+  firstName: "",
+  lastName: "",
+  email: "",
+  verified: null,
+  _id: "",
+};
+
 type userSlicerStatetype = {
   loading: boolean;
-  user: userType | {};
+  auth: boolean | undefined;
+  user: userType;
 };
 const initialState: userSlicerStatetype = {
   loading: false,
-  user: {},
+  auth: undefined,
+  user: initialUser,
 };
 
 const pending = (state: userSlicerStatetype) => {
@@ -17,13 +28,15 @@ const pending = (state: userSlicerStatetype) => {
 
 const rejected = (state: userSlicerStatetype) => {
   state.loading = false;
+  state.auth = false;
 };
 
 const fulfilled = (
   state: userSlicerStatetype,
   action: PayloadAction<userType>
 ) => {
-  state.loading = true;
+  state.loading = false;
+  state.auth = true;
   state.user = action.payload;
 };
 

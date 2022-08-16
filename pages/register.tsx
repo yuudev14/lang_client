@@ -3,9 +3,9 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import AuthForm from "../components/authForms/AuthForm";
-import { useDispatch } from "react-redux";
 import { registerAction } from "../store/slicers/user/actions";
 import { useRouter } from "next/router";
+import { useAppDispatch } from "../hooks/reduxhook";
 
 export type registerFormStateType = {
   username: string;
@@ -58,7 +58,7 @@ const Register = () => {
     resolver: yupResolver(yupSchema),
   });
 
-  const dispatch = useDispatch<any>();
+  const dispatch = useAppDispatch();
   const router = useRouter();
 
   const register = async (values: registerFormStateType) => {

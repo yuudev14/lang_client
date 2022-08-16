@@ -4,13 +4,25 @@ import { get } from "./requests";
 
 const PrivateRoute = (gssp: GetServerSideProps) => {
   return async (ctx: GetServerSidePropsContext) => {
-    const { req } = ctx;
+    const { req, resolvedUrl } = ctx;
     try {
-      await get("/api/auth/verify", {
+      const user = await get("/api/auth/verify", {
         headers: {
           Cookie: req.headers.cookie,
         },
       });
+
+      if (user.data.verified === false) {
+        console.log(resolvedUrl);
+        if (resolvedUrl !== "/verify-email") {
+          return {
+            props: {},
+            redirect: {
+              destination: "/verify-email",
+            },
+          };
+        }
+      }
       return gssp(ctx);
     } catch (error) {
       if (axios.isAxiosError(error)) {

@@ -2,11 +2,12 @@ import "../styles/globals.scss";
 import type { AppProps } from "next/app";
 import { useEffect } from "react";
 import store from "../store/store";
-import { Provider, useDispatch } from "react-redux";
+import { Provider } from "react-redux";
 import { verifyTokenAction } from "../store/slicers/user/actions";
+import { useAppDispatch } from "../hooks/reduxhook";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const dispatch = useDispatch<any>();
+  const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(verifyTokenAction());
   }, [dispatch]);

@@ -8,5 +8,6 @@ export type userType = {
   firstName: string;
   lastName: string;
   email: string;
-  boolean: string;
+  verified: string | null;
+  _id: string;
 };

@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { userType } from "../../../types/types";
-import { loginAction, registerAction } from "./actions";
+import { loginAction, registerAction, verifyTokenAction } from "./actions";
 
 type userSlicerStatetype = {
   loading: boolean;
@@ -32,17 +32,24 @@ const userSlicer = createSlice({
   initialState,
   reducers: {},
   extraReducers(builder) {
+    //register
     builder.addCase(registerAction.pending, pending);
 
     builder.addCase(registerAction.fulfilled, fulfilled);
 
     builder.addCase(registerAction.rejected, rejected);
-
+    //login
     builder.addCase(loginAction.pending, pending);
 
     builder.addCase(loginAction.fulfilled, fulfilled);
 
     builder.addCase(loginAction.rejected, rejected);
+    //verify
+    builder.addCase(verifyTokenAction.pending, pending);
+
+    builder.addCase(verifyTokenAction.fulfilled, fulfilled);
+
+    builder.addCase(verifyTokenAction.rejected, rejected);
   },
 });
 

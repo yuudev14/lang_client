@@ -6,6 +6,8 @@ import AuthForm from "../components/authForms/AuthForm";
 import { registerAction } from "../store/slicers/user/actions";
 import { useRouter } from "next/router";
 import { useAppDispatch } from "../hooks/reduxhook";
+import { GetServerSideProps } from "next";
+import alreadylogin from "../utils/AlreadyLogin";
 
 export type registerFormStateType = {
   username: string;
@@ -90,5 +92,7 @@ const Register = () => {
     </main>
   );
 };
+
+export const getServerSideProps: GetServerSideProps = alreadylogin;
 
 export default Register;

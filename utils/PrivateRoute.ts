@@ -12,7 +12,7 @@ const PrivateRoute = (gssp: GetServerSideProps) => {
         },
       });
 
-      console.log(user);
+      console.log(user.data);
 
       if (user.data.verified === false) {
         console.log(resolvedUrl);

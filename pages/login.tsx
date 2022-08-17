@@ -5,7 +5,7 @@ import * as yup from "yup";
 import AuthForm from "../components/authForms/AuthForm";
 import { loginAction } from "../store/slicers/user/actions";
 import { useRouter } from "next/router";
-import { useAppDispatch } from "../hooks/reduxhook";
+import { useAppDispatch, useAppSelector } from "../hooks/reduxhook";
 import { GetServerSideProps } from "next";
 import alreadylogin from "../utils/AlreadyLogin";
 

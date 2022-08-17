@@ -3,6 +3,7 @@ import { SubmitHandler, UseFormReturn } from "react-hook-form";
 import { authInputType } from "../../types/types";
 import AuthInput from "./AuthInput";
 import Link from "next/link";
+import { useAppSelector } from "../../hooks/reduxhook";
 
 type authFormPropTypes = {
   submitHandler: SubmitHandler<any>;
@@ -21,6 +22,9 @@ const AuthForm = ({
     handleSubmit,
     formState: { errors },
   } = reactHookForm;
+
+  const { loading } = useAppSelector((state) => state.userReducer);
+
   return (
     <form
       className="form hover:border-gray-300"
@@ -35,7 +39,12 @@ const AuthForm = ({
           input={input}
         />
       ))}
-      <input type="submit" className="btn mt-3" value={authType} />
+      <input
+        type="submit"
+        className={`btn mt-3 ${loading && "opacity-40"}`}
+        value={authType}
+        disabled={loading}
+      />
 
       {authType === "Login" ? (
         <div>

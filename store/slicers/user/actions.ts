@@ -28,7 +28,10 @@ export const loginAction = createAsyncThunk(
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.log(error.response?.data);
-        return rejectWithValue(error.response?.data);
+        return rejectWithValue({
+          ...(error.response?.data as object),
+          status: error.response?.status,
+        });
       }
     }
   }

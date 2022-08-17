@@ -46,13 +46,27 @@ const Login = () => {
     try {
       const loginDispatch = await dispatch(loginAction(values));
       if ("error" in loginDispatch.payload) {
+        const status = loginDispatch.payload.status;
         const error = loginDispatch.payload.error;
-        for (const e in error) {
-          reactHookForm.setError(e as any, {
-            type: "login error",
-            message: error[e],
-          });
+
+        let type = "error";
+        let message = "An error occured";
+        let field: "password" | "usernameOrEmail" = "password";
+
+        if (status === 401) {
+          type = "password error";
+          message = "Wrong password";
         }
+
+        if (status === 404) {
+          type = "usernameOrEmail error";
+          message = "account does not exist";
+          field = "usernameOrEmail";
+        }
+        reactHookForm.setError(field, {
+          type,
+          message,
+        });
       } else {
         router.push("/");
       }

@@ -30,7 +30,7 @@
 }
 
 main {
-  @apply h-full w-full max-w-5xl;
+  @apply w-full max-w-5xl m-auto h-[100vh];
 }
 
 * {

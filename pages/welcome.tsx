@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 
 const Welcome = () => {
   const data = [
@@ -74,27 +74,53 @@ const Welcome = () => {
     },
   ];
 
+  const [percent, setPercent] = useState(0);
+  const [fluentLang, setFluentLang] = useState<string[]>([]);
+
+  const fluentLangHandler = (lang: string) => {
+    let data: string[];
+    if (fluentLang.includes(lang)) {
+      data = fluentLang.filter((_lang: string) => _lang !== lang);
+    } else {
+      data = [...fluentLang, lang];
+    }
+    setFluentLang(data);
+  };
+
   return (
     <main>
-      <div>
-        <div className="flex w-1/2 flex-wrap justify-center m-auto gap-6">
-          {data.map((_data) => (
-            // <figure key={_data.name} className="w-[00px]">
+      <div className="w-full max-w-[515px] m-auto">
+        <div className="mt-10 p-2">
+          <div className="w-full bg-gray-200 p-3 m-auto rounded-3xl mb-6">
             <div
-              key={_data.name}
-              className="mt-4 card p-2 cursor-pointer w-[150px] hover:bg-cyan-200 hover:border-cyan-300 hover:scale-110 transition">
-              <Image
-                src={`/images/flags/${_data.name
-                  .replaceAll(" ", "-")
-                  .toLowerCase()}-flag-icon.png`}
-                alt=""
-                width={"150px"}
-                height={"100px"}
-                className="rounded-md"
-              />
-              <p className="text-center mt-2">{_data.name}</p>
-            </div>
-          ))}
+              className={`w-[${percent}%] p-3 bg-green-400 rounded-3xl`}></div>
+          </div>
+          <div className="flex w-full flex-wrap justify-center m-auto gap-6">
+            {data.map((_data) => (
+              <span
+                key={_data.name}
+                onClick={() => fluentLangHandler(_data.name)}
+                className={`mt-4 card p-2 cursor-pointer w-[150px] hover:bg-cyan-200 hover:border-cyan-300 hover:scale-110 transition ${
+                  fluentLang.includes(_data.name) &&
+                  "border-cyan-300 !bg-cyan-200"
+                }`}>
+                <Image
+                  src={`/images/flags/${_data.name
+                    .replaceAll(" ", "-")
+                    .toLowerCase()}-flag-icon.png`}
+                  alt=""
+                  width={"150px"}
+                  height={"100px"}
+                  className="rounded-md"
+                />
+                <p className="text-center mt-2">{_data.name}</p>
+              </span>
+            ))}
+          </div>
+          <div className="flex gap-2 mt-10 justify-between">
+            <button className="btn">Back</button>
+            <button className="btn">Next</button>
+          </div>
         </div>
       </div>
     </main>

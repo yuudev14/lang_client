@@ -12,8 +12,6 @@ const PrivateRoute = (gssp: GetServerSideProps) => {
         },
       });
 
-      console.log(user.data);
-
       if (user.data.verified === false) {
         console.log(resolvedUrl);
         if (resolvedUrl !== "/verify-email") {

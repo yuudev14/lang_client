@@ -30,16 +30,6 @@ const yupSchema = yup
 const registerInputs = [
   {
     type: "text",
-    name: "firstName",
-    placeholder: "First Name",
-  },
-  {
-    type: "text",
-    name: "lastName",
-    placeholder: "Last Name",
-  },
-  {
-    type: "text",
     name: "username",
     placeholder: "Username",
   },

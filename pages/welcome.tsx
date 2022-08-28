@@ -1,8 +1,10 @@
 import { useState } from "react";
 import FluentLanguage from "../components/welcome/FluentLanguage";
+import LanguageToLearn from "../components/welcome/LanguageToLearn";
+import UserNameForm from "../components/welcome/UserNameForm";
 
 const Welcome = () => {
-  const numOfSteps = 3;
+  const numOfSteps = 4;
   const [currStep, setCurrStep] = useState(1);
   console.log((currStep / numOfSteps) * 100);
   return (
@@ -14,7 +16,11 @@ const Welcome = () => {
               className={`p-3 bg-green-400 rounded-3xl`}
               style={{ width: `${(currStep / numOfSteps) * 100}%` }}></div>
           </div>
-          <FluentLanguage />
+          {currStep === 1 && <UserNameForm />}
+          {currStep === 2 && <FluentLanguage />}
+          {currStep === 3 && <LanguageToLearn />}
+          {currStep === 4 && <FluentLanguage />}
+
           <div className="flex gap-2 mt-10 justify-between">
             {currStep > 1 && (
               <button

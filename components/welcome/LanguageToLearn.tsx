@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React, { useState } from "react";
 
-const FluentLanguage = () => {
+const LanguageToLearn = () => {
   const data = [
     {
       url: "/wiki/China",
@@ -97,7 +97,7 @@ const FluentLanguage = () => {
   return (
     <>
       <h1 className="text-center text-2xl font-bold">
-        What language can you speak?
+        What language you want to learn?
       </h1>
       <div className="flex w-full flex-wrap justify-center m-auto gap-6">
         {data.map((_data) => (
@@ -124,4 +124,4 @@ const FluentLanguage = () => {
   );
 };
 
-export default FluentLanguage;
+export default LanguageToLearn;

@@ -6,7 +6,8 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { useAppSelector } from "../../hooks/reduxhook";
+import { useAppDispatch, useAppSelector } from "../../hooks/reduxhook";
+import { updateUserAction } from "../../store/slicers/user/actions";
 
 const UserNameForm = () => {
   const [data, setData] = useState({
@@ -15,12 +16,12 @@ const UserNameForm = () => {
   });
 
   const user = useAppSelector((state) => state.userReducer.user);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    console.log(user);
     setData({
-      firstName: user.firstName,
-      lastName: user.lastName,
+      firstName: user.firstName || "",
+      lastName: user.lastName || "",
     });
   }, [user]);
 
@@ -31,8 +32,8 @@ const UserNameForm = () => {
       [target.name]: target.value,
     });
   };
-  const onBlurHandler = (e: SyntheticEvent) => {
-    console.log("asdasdasdasdas");
+  const onBlurHandler = () => {
+    dispatch(updateUserAction(data));
   };
   return (
     <div className="form hover:border-gray-300">
@@ -44,6 +45,7 @@ const UserNameForm = () => {
           type="text"
           className="input-text"
           placeholder="First Name"
+          defaultValue={data.firstName}
           name="firstName"
           onChange={onChangeHandler}
           onBlur={onBlurHandler}
@@ -54,6 +56,7 @@ const UserNameForm = () => {
           type="text"
           className="input-text"
           placeholder="Last Name"
+          defaultValue={data.lastName}
           name="lastName"
           onChange={onChangeHandler}
           onBlur={onBlurHandler}

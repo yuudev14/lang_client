@@ -2,7 +2,8 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { loginFormStateType } from "../../../pages/login";
 import { registerFormStateType } from "../../../pages/register";
-import { get, post } from "../../../utils/requests";
+import { userType } from "../../../types/types";
+import { get, post, put } from "../../../utils/requests";
 
 export const registerAction = createAsyncThunk(
   "user/registerAction",
@@ -46,6 +47,21 @@ export const verifyTokenAction = createAsyncThunk(
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.log(error.response?.data);
+      }
+    }
+  }
+);
+
+export const updateUserAction = createAsyncThunk(
+  "user/updateUserAction",
+  async (data: userType, { rejectWithValue }) => {
+    try {
+      const response = await put("/api/user", data);
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.log(error.response?.data);
+        return rejectWithValue(error.response?.data);
       }
     }
   }

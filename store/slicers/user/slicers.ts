@@ -1,6 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { userType } from "../../../types/types";
-import { loginAction, registerAction, verifyTokenAction } from "./actions";
+import {
+  loginAction,
+  registerAction,
+  updateUserAction,
+  verifyTokenAction,
+} from "./actions";
 
 const initialUser = {
   username: "",
@@ -63,6 +68,13 @@ const userSlicer = createSlice({
     builder.addCase(verifyTokenAction.fulfilled, fulfilled);
 
     builder.addCase(verifyTokenAction.rejected, rejected);
+
+    //update
+    builder.addCase(updateUserAction.pending, pending);
+
+    builder.addCase(updateUserAction.fulfilled, fulfilled);
+
+    builder.addCase(updateUserAction.rejected, rejected);
   },
 });
 

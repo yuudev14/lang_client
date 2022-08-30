@@ -4,10 +4,10 @@ export type authInputType = {
   placeholder?: string;
 };
 export type userType = {
-  username: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  verified: string | null;
-  _id: string;
+  username?: string;
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  verified?: string | null;
+  _id?: string;
 };

@@ -6,7 +6,6 @@ import UserNameForm from "../components/welcome/UserNameForm";
 const Welcome = () => {
   const numOfSteps = 4;
   const [currStep, setCurrStep] = useState(1);
-  console.log((currStep / numOfSteps) * 100);
   return (
     <main>
       <div className="w-full max-w-[515px] m-auto py-4">

@@ -21,8 +21,6 @@ const yupSchema = yup
   .object({
     username: yup.string().required(),
     email: yup.string().email("input must be email").required(),
-    firstName: yup.string().required(),
-    lastName: yup.string().required(),
     password: yup.string().required(),
   })
   .required();
@@ -55,6 +53,7 @@ const Register = () => {
 
   const register = async (values: registerFormStateType) => {
     try {
+      console.log(values);
       const registerDispatch = await dispatch(registerAction(values));
       if ("error" in registerDispatch.payload) {
         const error = registerDispatch.payload.error;

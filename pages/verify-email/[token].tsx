@@ -15,6 +15,9 @@ const Verify = () => {
         try {
           const verifyResponse = await post(`/api/auth/verify-email/${token}`);
           setVerify(true);
+          setTimeout(() => {
+            router.push("/welcome");
+          }, 2000);
         } catch (error) {
           console.log(error);
           if (axios.isAxiosError(error)) {
@@ -24,7 +27,7 @@ const Verify = () => {
         }
       })();
     }
-  }, [token]);
+  }, [router, token]);
   return (
     <main>
       <div className="card px-5 max-w-lg w-[80%] py-10 absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/4 flex flex-col gap-8 items-center">
@@ -32,7 +35,7 @@ const Verify = () => {
           {verify === undefined
             ? "Verifying. Please wait..."
             : verify === true
-            ? "Email successfully verified"
+            ? "Email successfully verified. Will send you to the welcome page"
             : error}
         </h1>
       </div>

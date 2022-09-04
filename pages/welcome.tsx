@@ -1,4 +1,5 @@
 import { useState } from "react";
+import FinishWelcomeStep from "../components/welcome/FinishWelcomeStep";
 import FluentLanguage from "../components/welcome/FluentLanguage";
 import LanguageToLearn from "../components/welcome/LanguageToLearn";
 import UserNameForm from "../components/welcome/UserNameForm";
@@ -18,7 +19,7 @@ const Welcome = () => {
           {currStep === 1 && <UserNameForm />}
           {currStep === 2 && <FluentLanguage />}
           {currStep === 3 && <LanguageToLearn />}
-          {currStep === 4 && <FluentLanguage />}
+          {currStep === 4 && <FinishWelcomeStep />}
 
           <div className="flex gap-2 mt-10 justify-between">
             {currStep > 1 && (

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import FinishWelcomeStep from "../components/welcome/FinishWelcomeStep";
 import LanguageForm from "../components/welcome/LanguageForm";
@@ -6,8 +7,8 @@ import { useAppSelector } from "../hooks/reduxhook";
 
 const Welcome = () => {
   const numOfSteps = 4;
-  const user = useAppSelector((state) => state.userReducer.user);
   const [currStep, setCurrStep] = useState(0);
+  const user = useAppSelector((state) => state.userReducer.user);
   useEffect(() => {
     let step: number;
     if (!user.firstName && !user.lastName) {

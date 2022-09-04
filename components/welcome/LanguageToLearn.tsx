@@ -102,10 +102,11 @@ const LanguageToLearn = () => {
       <div className="flex w-full flex-wrap justify-center m-auto gap-6">
         {data.map((_data) => (
           <span
-            key={_data.name}
-            onClick={() => fluentLangHandler(_data.name)}
+            key={_data.language}
+            onClick={() => fluentLangHandler(_data.language)}
             className={`mt-4 card p-2 cursor-pointer w-[150px] hover:bg-cyan-200 hover:border-cyan-300 hover:scale-110 transition ${
-              fluentLang.includes(_data.name) && "border-cyan-300 !bg-cyan-200"
+              fluentLang.includes(_data.language) &&
+              "border-cyan-300 !bg-cyan-200"
             }`}>
             <Image
               src={`/images/flags/${_data.name
@@ -116,7 +117,7 @@ const LanguageToLearn = () => {
               height={"100px"}
               className="rounded-md"
             />
-            <p className="text-center mt-2">{_data.name}</p>
+            <p className="text-center mt-2">{_data.language}</p>
           </span>
         ))}
       </div>

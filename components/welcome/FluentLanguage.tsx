@@ -103,9 +103,10 @@ const FluentLanguage = () => {
         {data.map((_data) => (
           <span
             key={_data.name}
-            onClick={() => fluentLangHandler(_data.name)}
+            onClick={() => fluentLangHandler(_data.language)}
             className={`mt-4 card p-2 cursor-pointer w-[150px] hover:bg-cyan-200 hover:border-cyan-300 hover:scale-110 transition ${
-              fluentLang.includes(_data.name) && "border-cyan-300 !bg-cyan-200"
+              fluentLang.includes(_data.language) &&
+              "border-cyan-300 !bg-cyan-200"
             }`}>
             <Image
               src={`/images/flags/${_data.name
@@ -116,7 +117,7 @@ const FluentLanguage = () => {
               height={"100px"}
               className="rounded-md"
             />
-            <p className="text-center mt-2">{_data.name}</p>
+            <p className="text-center mt-2">{_data.language}</p>
           </span>
         ))}
       </div>

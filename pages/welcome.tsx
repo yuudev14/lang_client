@@ -20,7 +20,7 @@ const Welcome = () => {
       step = 4;
     }
     setCurrStep(step);
-  }, [user]);
+  }, []);
   return (
     <main>
       <div className="w-full max-w-[515px] m-auto py-4">

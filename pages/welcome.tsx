@@ -1,7 +1,6 @@
 import { useState } from "react";
 import FinishWelcomeStep from "../components/welcome/FinishWelcomeStep";
-import FluentLanguage from "../components/welcome/FluentLanguage";
-import LanguageToLearn from "../components/welcome/LanguageToLearn";
+import LanguageForm from "../components/welcome/LanguageForm";
 import UserNameForm from "../components/welcome/UserNameForm";
 
 const Welcome = () => {
@@ -17,8 +16,8 @@ const Welcome = () => {
               style={{ width: `${(currStep / numOfSteps) * 100}%` }}></div>
           </div>
           {currStep === 1 && <UserNameForm />}
-          {currStep === 2 && <FluentLanguage />}
-          {currStep === 3 && <LanguageToLearn />}
+          {currStep === 2 && <LanguageForm type="fluent_language" />}
+          {currStep === 3 && <LanguageForm type="language_to_study" />}
           {currStep === 4 && <FinishWelcomeStep />}
 
           <div className="flex gap-2 mt-10 justify-between">

@@ -1,9 +1,11 @@
 import Image from "next/image";
-import React, { useState } from "react";
-import { useAppDispatch } from "../../hooks/reduxhook";
+import React, { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../hooks/reduxhook";
 import { updateUserAction } from "../../store/slicers/user/actions";
-
-const LanguageToLearn = () => {
+type LanguageFormProps = {
+  type: "language_to_study" | "fluent_language";
+};
+const LanguageForm = ({ type }: LanguageFormProps) => {
   const data = [
     {
       url: "/wiki/China",
@@ -87,6 +89,12 @@ const LanguageToLearn = () => {
 
   const [fluentLang, setFluentLang] = useState<string[]>([]);
   const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.userReducer.user);
+
+  useEffect(() => {
+    const lang = user[type];
+    setFluentLang(lang ? lang : []);
+  }, [user, type]);
 
   const fluentLangHandler = (lang: string) => {
     let data: string[];
@@ -98,14 +106,17 @@ const LanguageToLearn = () => {
     setFluentLang(data);
     dispatch(
       updateUserAction({
-        language_to_study: data,
+        [type]: data,
       })
     );
   };
+
   return (
     <>
       <h1 className="text-center text-2xl font-bold">
-        What language you want to learn?
+        {type === "language_to_study"
+          ? "What language you want to learn?"
+          : "What language you can speak"}
       </h1>
       <div className="flex w-full flex-wrap justify-center m-auto gap-6">
         {data.map((_data) => (
@@ -133,4 +144,4 @@ const LanguageToLearn = () => {
   );
 };
 
-export default LanguageToLearn;
+export default LanguageForm;

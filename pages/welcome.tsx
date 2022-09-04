@@ -1,11 +1,26 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FinishWelcomeStep from "../components/welcome/FinishWelcomeStep";
 import LanguageForm from "../components/welcome/LanguageForm";
 import UserNameForm from "../components/welcome/UserNameForm";
+import { useAppSelector } from "../hooks/reduxhook";
 
 const Welcome = () => {
   const numOfSteps = 4;
-  const [currStep, setCurrStep] = useState(1);
+  const user = useAppSelector((state) => state.userReducer.user);
+  const [currStep, setCurrStep] = useState(0);
+  useEffect(() => {
+    let step: number;
+    if (!user.firstName && !user.lastName) {
+      step = 1;
+    } else if (user.fluent_language?.length == -0) {
+      step = 2;
+    } else if (user.language_to_study?.length === 0) {
+      step = 3;
+    } else {
+      step = 4;
+    }
+    setCurrStep(step);
+  }, [user]);
   return (
     <main>
       <div className="w-full max-w-[515px] m-auto py-4">

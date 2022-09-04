@@ -12,16 +12,30 @@ const PrivateRoute = (gssp: GetServerSideProps) => {
         },
       });
 
+      let destination: string = "";
+
       if (user.data.verified === false) {
-        console.log(resolvedUrl);
         if (resolvedUrl !== "/verify-email") {
-          return {
-            props: {},
-            redirect: {
-              destination: "/verify-email",
-            },
-          };
+          destination = "/verify-email";
         }
+      }
+
+      if (
+        !user.data.first_name ||
+        !user.data.last_name ||
+        user.data.fluent_language.length === 0 ||
+        user.data.language_to_study.length === 0
+      ) {
+        destination = "/welcome";
+      }
+
+      if (destination !== "") {
+        return {
+          props: {},
+          redirect: {
+            destination,
+          },
+        };
       }
       return gssp(ctx);
     } catch (error) {

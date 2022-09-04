@@ -10,4 +10,6 @@ export type userType = {
   email?: string;
   verified?: string | null;
   _id?: string;
+  fluent_language?: string[];
+  language_to_study?: string[];
 };

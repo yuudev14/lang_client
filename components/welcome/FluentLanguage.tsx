@@ -1,5 +1,7 @@
 import Image from "next/image";
 import React, { useState } from "react";
+import { useAppDispatch } from "../../hooks/reduxhook";
+import { updateUserAction } from "../../store/slicers/user/actions";
 
 const FluentLanguage = () => {
   const data = [
@@ -84,6 +86,7 @@ const FluentLanguage = () => {
   ];
 
   const [fluentLang, setFluentLang] = useState<string[]>([]);
+  const dispatch = useAppDispatch();
 
   const fluentLangHandler = (lang: string) => {
     let data: string[];
@@ -93,6 +96,11 @@ const FluentLanguage = () => {
       data = [...fluentLang, lang];
     }
     setFluentLang(data);
+    dispatch(
+      updateUserAction({
+        fluent_language: data,
+      })
+    );
   };
   return (
     <>

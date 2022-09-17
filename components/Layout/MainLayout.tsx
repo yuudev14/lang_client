@@ -3,7 +3,7 @@ import Header from "../common/Header";
 
 const MainLayout = ({ children }: any) => {
   return (
-    <div className="">
+    <div className="pt-[100px]">
       <Header />
       {children}
     </div>

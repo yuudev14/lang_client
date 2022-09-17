@@ -12,15 +12,15 @@ const PrivateRoute = (gssp: GetServerSideProps) => {
         },
       });
 
+      console.log(user.data);
+
       let destination: string = "";
 
       if (user.data.verified === false) {
         if (resolvedUrl !== "/verify-email") {
           destination = "/verify-email";
         }
-      }
-
-      if (
+      } else if (
         !user.data.first_name ||
         !user.data.last_name ||
         user.data.fluent_language.length === 0 ||

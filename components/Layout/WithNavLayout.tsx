@@ -1,16 +1,61 @@
+import Link from "next/link";
 import React from "react";
+import {
+  MdHome,
+  MdOutlineMenuBook,
+  MdChat,
+  MdVoiceChat,
+  MdPersonSearch,
+} from "react-icons/md";
+
+type navOptionType = "HOME" | "LEARN" | "CHAT" | "CALL" | "MEETUP";
 
 const WithNavLayout = ({ children }: any) => {
-  const navOptions = ["HOME", "LEARN", "CHAT", "CALL", "MEETUP"];
+  const navOptions = {
+    HOME: {
+      path: "/",
+      Icon: MdHome,
+    },
+    LEARN: {
+      path: "/learn",
+      Icon: MdOutlineMenuBook,
+    },
+    CHAT: {
+      path: "/chat",
+      Icon: MdChat,
+    },
+    CALL: {
+      path: "/call",
+      Icon: MdVoiceChat,
+    },
+    MEETUP: {
+      path: "/meetup",
+      Icon: MdPersonSearch,
+    },
+  };
+
+  const GetIcon = (option: navOptionType) => {
+    const Icon = navOptions[option].Icon;
+    return <Icon size={30} />;
+  };
+
   return (
     <main className="flex px-8">
       <nav className="w-[15%]">
         <ul>
-          {navOptions.map((option) => (
+          {Object.keys(navOptions).map((option) => (
             <li key={option} className="h-14 font-extrabold text-gray-400">
-              <div className="cursor-pointer w-max">
-                <p>{option}</p>
-              </div>
+              <Link
+                href={
+                  navOptions[
+                    option as "HOME" | "LEARN" | "CHAT" | "CALL" | "MEETUP"
+                  ].path
+                }>
+                <a className="flex gap-3 items-center">
+                  {GetIcon(option as navOptionType)}
+                  <p className="cursor-pointer w-max">{option}</p>
+                </a>
+              </Link>
             </li>
           ))}
         </ul>

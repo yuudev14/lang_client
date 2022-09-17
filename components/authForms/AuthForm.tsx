@@ -29,7 +29,9 @@ const AuthForm = ({
     <form
       className="form form-position hover:border-gray-300"
       onSubmit={handleSubmit(submitHandler)}>
-      <h1 className="text-3xl font-bold text-center mb-10">{authType}</h1>
+      <h1 className="text-3xl font-bold text-center mb-10 font-title">
+        {authType}
+      </h1>
 
       {loginInputs.map((input) => (
         <AuthInput

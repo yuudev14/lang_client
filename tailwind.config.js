@@ -10,6 +10,11 @@ module.exports = {
         "button-not-clicked": "0 7px rgb(8 145 178)",
         "button-clicked": "0 3px rgb(21 94 117)",
       },
+      colors: {
+        primary: "#1bb0f8",
+        secondary: "#ff4d4c",
+        tertiary: "#ffc805",
+      },
     },
   },
   plugins: [],

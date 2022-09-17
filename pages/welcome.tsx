@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
+import Header from "../components/common/Header";
 import FinishWelcomeStep from "../components/welcome/FinishWelcomeStep";
 import LanguageForm from "../components/welcome/LanguageForm";
 import UserNameForm from "../components/welcome/UserNameForm";
@@ -24,6 +25,7 @@ const Welcome = () => {
   }, [user]);
   return (
     <main>
+      <Header />
       {!loading && auth && (
         <div className="w-full max-w-[515px] m-auto py-4">
           <div className="mt-10 p-2">

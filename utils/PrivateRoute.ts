@@ -12,8 +12,6 @@ const PrivateRoute = (gssp: GetServerSideProps) => {
         },
       });
 
-      console.log(user.data);
-
       let destination: string = "";
 
       if (user.data.verified === false) {
@@ -21,8 +19,8 @@ const PrivateRoute = (gssp: GetServerSideProps) => {
           destination = "/verify-email";
         }
       } else if (
-        !user.data.first_name ||
-        !user.data.last_name ||
+        !user.data.firstName ||
+        !user.data.lastName ||
         user.data.fluent_language.length === 0 ||
         user.data.language_to_study.length === 0
       ) {

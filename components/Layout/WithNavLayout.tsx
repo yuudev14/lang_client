@@ -45,12 +45,7 @@ const WithNavLayout = ({ children }: any) => {
         <ul>
           {Object.keys(navOptions).map((option) => (
             <li key={option} className="h-14 font-extrabold text-gray-400">
-              <Link
-                href={
-                  navOptions[
-                    option as "HOME" | "LEARN" | "CHAT" | "CALL" | "MEETUP"
-                  ].path
-                }>
+              <Link href={navOptions[option as navOptionType].path}>
                 <a className="flex gap-3 items-center">
                   {GetIcon(option as navOptionType)}
                   <p className="cursor-pointer w-max">{option}</p>

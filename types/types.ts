@@ -13,3 +13,5 @@ export type userType = {
   fluent_language?: string[];
   language_to_study?: string[];
 };
+
+export type navOptionType = "HOME" | "LEARN" | "CHAT" | "CALL" | "MEETUP";

@@ -1,5 +1,6 @@
 import Link from "next/link";
-import React from "react";
+import { useRouter } from "next/router";
+import React, { useEffect } from "react";
 import {
   MdHome,
   MdOutlineMenuBook,
@@ -7,8 +8,8 @@ import {
   MdVoiceChat,
   MdPersonSearch,
 } from "react-icons/md";
-
-type navOptionType = "HOME" | "LEARN" | "CHAT" | "CALL" | "MEETUP";
+import { navOptionType } from "../../types/types";
+import GetOptionButton from "../common/GetOptionButton";
 
 const WithNavLayout = ({ children }: any) => {
   const navOptions = {
@@ -34,11 +35,6 @@ const WithNavLayout = ({ children }: any) => {
     },
   };
 
-  const GetIcon = (option: navOptionType) => {
-    const Icon = navOptions[option].Icon;
-    return <Icon size={30} />;
-  };
-
   return (
     <main className="flex px-8">
       <nav className="w-[15%]">
@@ -47,8 +43,10 @@ const WithNavLayout = ({ children }: any) => {
             <li key={option} className="h-14 font-extrabold text-gray-400">
               <Link href={navOptions[option as navOptionType].path}>
                 <a className="flex gap-3 items-center">
-                  {GetIcon(option as navOptionType)}
-                  <p className="cursor-pointer w-max">{option}</p>
+                  <GetOptionButton
+                    option={option as navOptionType}
+                    navOptions={navOptions}
+                  />
                 </a>
               </Link>
             </li>

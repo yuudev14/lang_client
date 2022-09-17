@@ -1,6 +1,5 @@
 import React from "react";
 import { MdPerson } from "react-icons/md";
-import { SECONDARY } from "../../utils/constants";
 
 const Header = () => {
   return (
@@ -10,11 +9,7 @@ const Header = () => {
         <nav>
           <ul>
             <li>
-              <MdPerson
-                size={45}
-                color={SECONDARY}
-                className="cursor-pointer"
-              />
+              <MdPerson size={45} className="cursor-pointer text-secondary" />
             </li>
           </ul>
         </nav>

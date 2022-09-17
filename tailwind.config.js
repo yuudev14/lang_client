@@ -15,6 +15,9 @@ module.exports = {
         secondary: "#ff4d4c",
         tertiary: "#ffc805",
       },
+      fontFamily: {
+        title: '"Comic Sans MS", "Comic Sans", cursive',
+      },
     },
   },
   plugins: [],

@@ -40,7 +40,9 @@ const WithNavLayout = ({ children }: any) => {
       <nav className="w-[15%]">
         <ul>
           {Object.keys(navOptions).map((option) => (
-            <li key={option} className="h-14 font-extrabold text-gray-400">
+            <li
+              key={option}
+              className="h-14 font-extrabold text-gray-400 hover:text-tertiary">
               <Link href={navOptions[option as navOptionType].path}>
                 <a className="flex gap-3 items-center">
                   <GetOptionButton

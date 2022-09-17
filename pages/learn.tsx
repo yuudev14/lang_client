@@ -4,11 +4,11 @@ import WithNavLayout from "../components/Layout/WithNavLayout";
 import { defaultGetServerSidePropFunc } from "../utils/common";
 import PrivateRoute from "../utils/PrivateRoute";
 
-const Home: NextPage = () => {
+const Learn: NextPage = () => {
   return (
     <MainLayout>
       <WithNavLayout>
-        <h1>hi</h1>
+        <h1>learn</h1>
       </WithNavLayout>
     </MainLayout>
   );
@@ -17,4 +17,4 @@ const Home: NextPage = () => {
 export const getServerSideProps: GetServerSideProps = PrivateRoute(
   defaultGetServerSidePropFunc
 );
-export default Home;
+export default Learn;

@@ -1,7 +1,7 @@
 import { GetServerSideProps } from "next";
 import React, { useEffect, useState } from "react";
 import PrivateRoute from "../../utils/PrivateRoute";
-import { defaultGetServerSidePropFunc } from "../../utils/common";
+import { defaultGetServerSidePropFunc } from "../../utils/constants";
 import { useAppSelector } from "../../hooks/reduxhook";
 import { get } from "../../utils/requests";
 import axios from "axios";

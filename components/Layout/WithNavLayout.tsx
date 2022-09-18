@@ -1,12 +1,12 @@
 import Link from "next/link";
-import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React from "react";
 import {
   MdHome,
   MdOutlineMenuBook,
   MdChat,
   MdVoiceChat,
   MdPersonSearch,
+  MdOutlinePeopleAlt,
 } from "react-icons/md";
 import { navOptionType } from "../../types/types";
 import GetOptionButton from "../common/GetOptionButton";
@@ -21,12 +21,16 @@ const WithNavLayout = ({ children }: any) => {
       path: "/learn",
       Icon: MdOutlineMenuBook,
     },
-    CHAT: {
-      path: "/chat",
+    FRIENDS: {
+      path: "/friends",
+      Icon: MdOutlinePeopleAlt,
+    },
+    MESSAGES: {
+      path: "/messages",
       Icon: MdChat,
     },
-    CALL: {
-      path: "/call",
+    RANDOM: {
+      path: "/random",
       Icon: MdVoiceChat,
     },
     MEETUP: {

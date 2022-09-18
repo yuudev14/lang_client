@@ -14,4 +14,10 @@ export type userType = {
   language_to_study?: string[];
 };
 
-export type navOptionType = "HOME" | "LEARN" | "CHAT" | "CALL" | "MEETUP";
+export type navOptionType =
+  | "HOME"
+  | "LEARN"
+  | "FRIENDS"
+  | "MESSAGES"
+  | "RANDOM"
+  | "MEETUP";

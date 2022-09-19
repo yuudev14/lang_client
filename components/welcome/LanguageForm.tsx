@@ -48,9 +48,7 @@ const LanguageForm = ({ type }: LanguageFormProps) => {
               "border-cyan-300 !bg-cyan-200"
             }`}>
             <Image
-              src={`/images/flags/${_data.name
-                .replaceAll(" ", "-")
-                .toLowerCase()}-flag-icon.png`}
+              src={`/images/flags/${_data.language}-flag-icon.png`}
               alt=""
               width={"150px"}
               height={"100px"}

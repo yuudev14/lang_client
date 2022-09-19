@@ -40,7 +40,7 @@ const WithNavLayout = ({ children }: any) => {
   };
 
   return (
-    <main className="flex px-8">
+    <main className="flex px-8 pt-[100px]">
       <nav className="w-[15%]">
         <ul>
           {Object.keys(navOptions).map((option) => (

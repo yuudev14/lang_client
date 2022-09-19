@@ -80,7 +80,7 @@ const RandomChatPage: NextPage = () => {
           </div>
           <div className="flex gap-2 mt-auto items-end">
             <div
-              className="max-h-36 outline-none overflow-auto flex-1 border-4 py-2 px-6 rounded-2xl"
+              className="max-h-36 outline-none overflow-auto flex-1 border-4 py-2 px-3 rounded-2xl"
               contentEditable={true}></div>
             <button className="btn">send</button>
           </div>

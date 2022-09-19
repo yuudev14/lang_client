@@ -10,9 +10,20 @@ const RandomChatPage: NextPage = () => {
     socket.connect();
     socket.emit("join-random-chat", "english");
     socket.emit("find-random-chat-user", "english");
-    socket.on("found-random-chat-user", () => {
-      console.log("hello");
+    socket.emit("waiting random chat match", "english");
+    socket.on("found-random-chat-user", (id) => {
+      if (id) {
+        socket.off("found-random-chat-user");
+      } else {
+        socket.emit("waiting random chat match", "english");
+      }
     });
+
+    return () => {
+      socket.off("found-random-chat-user");
+      socket.emit("disconnect-random-chat", "english");
+      socket.disconnect();
+    };
   }, []);
   return (
     <MainLayout>

@@ -27,59 +27,55 @@ const RandomChatPage: NextPage = () => {
   return (
     <MainLayout>
       <WithNavLayout>
-        <div className="flex flex-col h-full p-4 w-full">
-          <div>
-            <div>
-              Aliqua ut sint veniam voluptate dolor cillum anim cillum
-              voluptate. Sint mollit voluptate tempor consequat nulla irure
-              laborum ad anim reprehenderit mollit magna est. Nostrud aliquip
-              tempor veniam mollit adipisicing ullamco occaecat sit exercitation
-              ullamco deserunt ullamco. Amet in voluptate cupidatat eiusmod
-              culpa velit consequat nisi non. Ex officia deserunt consequat qui
-              enim labore ea eu ullamco consectetur. Consequat nulla occaecat in
-              do enim ipsum consectetur deserunt dolore mollit commodo. Amet eu
-              id sit nulla proident duis. Incididunt excepteur sit sit ea.
-              Officia ea in labore velit cillum fugiat nulla. Duis ex officia
-              commodo id incididunt elit.
+        <div className="flex flex-col h-full p-4 w-full gap-2">
+          <div className="overflow-auto px-2">
+            <div className="user-chat">
+              <p className="px-2">You:</p>
+              <div className="user-content">
+                Aliqua ut sint veniam voluptate dolor cillum anim cillum
+                voluptate. Sint mollit voluptate tempor consequat nulla irure
+                laborum ad anim reprehenderit mollit magna est. Nostrud aliquip
+                tempor veniam mollit adipisicing ullamco occaecat sit
+                exercitation ullamco deserunt ullamco. Amet in voluptate
+                cupidatat eiusmod culpa velit consequat nisi non. Ex officia
+                deserunt consequat qui enim labore ea eu ullamco consectetur.
+                Consequat nulla occaecat in do enim ipsum consectetur deserunt
+                dolore mollit commodo. Amet eu id sit nulla proident duis.
+                Incididunt excepteur sit sit ea. Officia ea in labore velit
+                cillum fugiat nulla. Duis ex officia commodo id incididunt elit.
+              </div>
             </div>
-            <div>
-              Aliqua ut sint veniam voluptate dolor cillum anim cillum
-              voluptate. Sint mollit voluptate tempor consequat nulla irure
-              laborum ad anim reprehenderit mollit magna est. Nostrud aliquip
-              tempor veniam mollit adipisicing ullamco occaecat sit exercitation
-              ullamco deserunt ullamco. Amet in voluptate cupidatat eiusmod
-              culpa velit consequat nisi non. Ex officia deserunt consequat qui
-              enim labore ea eu ullamco consectetur. Consequat nulla occaecat in
-              do enim ipsum consectetur deserunt dolore mollit commodo. Amet eu
-              id sit nulla proident duis. Incididunt excepteur sit sit ea.
-              Officia ea in labore velit cillum fugiat nulla. Duis ex officia
-              commodo id incididunt elit.
+            <div className="user-chat">
+              <p className="px-2">You:</p>
+              <div className="user-content">
+                Aliqua ut sint veniam voluptate dolor cillum anim cillum
+                voluptate. Sint mollit voluptate tempor consequat nulla irure
+                laborum ad anim reprehenderit mollit magna est. Nostrud aliquip
+                tempor veniam mollit adipisicing ullamco occaecat sit
+                exercitation ullamco deserunt ullamco. Amet in voluptate
+                cupidatat eiusmod culpa velit consequat nisi non. Ex officia
+                deserunt consequat qui enim labore ea eu ullamco consectetur.
+                Consequat nulla occaecat in do enim ipsum consectetur deserunt
+                dolore mollit commodo. Amet eu id sit nulla proident duis.
+                Incididunt excepteur sit sit ea. Officia ea in labore velit
+                cillum fugiat nulla. Duis ex officia commodo id incididunt elit.
+              </div>
             </div>
-            <div>
-              Aliqua ut sint veniam voluptate dolor cillum anim cillum
-              voluptate. Sint mollit voluptate tempor consequat nulla irure
-              laborum ad anim reprehenderit mollit magna est. Nostrud aliquip
-              tempor veniam mollit adipisicing ullamco occaecat sit exercitation
-              ullamco deserunt ullamco. Amet in voluptate cupidatat eiusmod
-              culpa velit consequat nisi non. Ex officia deserunt consequat qui
-              enim labore ea eu ullamco consectetur. Consequat nulla occaecat in
-              do enim ipsum consectetur deserunt dolore mollit commodo. Amet eu
-              id sit nulla proident duis. Incididunt excepteur sit sit ea.
-              Officia ea in labore velit cillum fugiat nulla. Duis ex officia
-              commodo id incididunt elit.
-            </div>
-            <div>
-              Aliqua ut sint veniam voluptate dolor cillum anim cillum
-              voluptate. Sint mollit voluptate tempor consequat nulla irure
-              laborum ad anim reprehenderit mollit magna est. Nostrud aliquip
-              tempor veniam mollit adipisicing ullamco occaecat sit exercitation
-              ullamco deserunt ullamco. Amet in voluptate cupidatat eiusmod
-              culpa velit consequat nisi non. Ex officia deserunt consequat qui
-              enim labore ea eu ullamco consectetur. Consequat nulla occaecat in
-              do enim ipsum consectetur deserunt dolore mollit commodo. Amet eu
-              id sit nulla proident duis. Incididunt excepteur sit sit ea.
-              Officia ea in labore velit cillum fugiat nulla. Duis ex officia
-              commodo id incididunt elit.
+            <div className="sender-chat">
+              <p className="px-2 text-secondary">Stranger:</p>
+              <div className="sender-content">
+                Aliqua ut sint veniam voluptate dolor cillum anim cillum
+                voluptate. Sint mollit voluptate tempor consequat nulla irure
+                laborum ad anim reprehenderit mollit magna est. Nostrud aliquip
+                tempor veniam mollit adipisicing ullamco occaecat sit
+                exercitation ullamco deserunt ullamco. Amet in voluptate
+                cupidatat eiusmod culpa velit consequat nisi non. Ex officia
+                deserunt consequat qui enim labore ea eu ullamco consectetur.
+                Consequat nulla occaecat in do enim ipsum consectetur deserunt
+                dolore mollit commodo. Amet eu id sit nulla proident duis.
+                Incididunt excepteur sit sit ea. Officia ea in labore velit
+                cillum fugiat nulla. Duis ex officia commodo id incididunt elit.
+              </div>
             </div>
           </div>
           <div className="flex gap-2 mt-auto items-end">

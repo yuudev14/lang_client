@@ -21,6 +21,20 @@
   @apply outline-none focus:border-gray-300 rounded-xl py-2 px-5 border-solid border-4 hover:border-gray-300 bg-gray-50;
 }
 
+.user-chat {
+  @apply max-w-[50%] ml-auto my-3;
+}
+.user-content {
+  @apply p-3 bg-primary text-white rounded-2xl;
+}
+
+.sender-chat {
+  @apply max-w-[50%] my-3;
+}
+.sender-content {
+  @apply p-3 bg-secondary text-white rounded-2xl;
+}
+
 .background {
   background: url("../public/images/map.webp") fixed center no-repeat;
   height: 100vh;

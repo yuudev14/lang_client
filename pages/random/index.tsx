@@ -1,5 +1,6 @@
 import type { GetServerSideProps, NextPage } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import MainLayout from "../../components/Layout/MainLayout";
 import WithNavLayout from "../../components/Layout/WithNavLayout";
@@ -43,9 +44,7 @@ const RandomPage: NextPage = () => {
                     "mt-1 card p-2 cursor-pointer w-[150px] hover:bg-cyan-200 hover:border-cyan-300 transition"
                   }>
                   <Image
-                    src={`/images/flags/${room
-                      .replaceAll(" ", "-")
-                      .toLowerCase()}-flag-icon.png`}
+                    src={`/images/flags/${room}-flag-icon.png`}
                     alt=""
                     width={"150px"}
                     height={"100px"}
@@ -53,8 +52,16 @@ const RandomPage: NextPage = () => {
                   />
                 </span>
               </div>
-              <button className="btn w-32">call</button>
-              <button className="btn w-32">chat</button>
+              <Link href="/random/call">
+                <a>
+                  <button className="btn w-32">call</button>
+                </a>
+              </Link>
+              <Link href="/random/chat">
+                <a>
+                  <button className="btn w-32">chat</button>
+                </a>
+              </Link>
             </div>
             <div
               className={`flex flex-wrap gap-6 w-[50%] mt-8 ${

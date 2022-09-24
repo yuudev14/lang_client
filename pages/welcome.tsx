@@ -23,11 +23,11 @@ const Welcome = () => {
       step = 4;
     }
     setCurrStep(step);
-  }, [user]);
+  }, []);
   return (
     <MainLayout>
       <main>
-        {!loading && auth && (
+        {auth === true && (
           <div className="w-full max-w-[515px] m-auto py-4">
             <div className="mt-10 p-2">
               <div className="w-full bg-gray-200 p-3 m-auto rounded-3xl mb-6 transition">

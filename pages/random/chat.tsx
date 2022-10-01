@@ -15,11 +15,8 @@ const RandomChatPage: NextPage = () => {
   const [timeoutId, setTimeoutId] = useState<any>([]);
   const router = useRouter();
   const msgRef = useRef<HTMLDivElement>(null);
+  const divBottomRef = useRef<HTMLDivElement>(null);
   const { room } = router.query;
-
-  useEffect(() => {
-    console.log(inputMsg);
-  }, [inputMsg]);
 
   useEffect(() => {
     socket.connect();
@@ -42,7 +39,6 @@ const RandomChatPage: NextPage = () => {
       }
     });
     socket.on("receive-message-random-chat", (data) => {
-      console.log([...messages, data]);
       setMessages((messages: any) => [...messages, data]);
     });
     const timeout = setTimeout(() => {
@@ -57,6 +53,10 @@ const RandomChatPage: NextPage = () => {
       socket.disconnect();
     };
   }, []);
+
+  useEffect(() => {
+    divBottomRef.current!.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
   const sendMessageHandler = () => {
     if (matchUser && inputMsg) {
@@ -84,6 +84,7 @@ const RandomChatPage: NextPage = () => {
                 <div>{data.msg}</div>
               </div>
             ))}
+            <div ref={divBottomRef}></div>
           </div>
           <div className="flex gap-2 mt-auto items-end">
             <div

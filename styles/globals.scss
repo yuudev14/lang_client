@@ -23,16 +23,24 @@
 
 .user-chat {
   @apply max-w-[50%] ml-auto my-3;
-}
-.user-content {
-  @apply p-3 bg-primary text-white rounded-2xl;
+  p {
+    @apply px-2;
+  }
+
+  div {
+    @apply p-3 bg-primary text-white rounded-2xl;
+  }
 }
 
 .sender-chat {
   @apply max-w-[50%] my-3;
-}
-.sender-content {
-  @apply p-3 bg-secondary text-white rounded-2xl;
+  p {
+    @apply px-2 text-secondary;
+  }
+
+  div {
+    @apply p-3 bg-secondary text-white rounded-2xl;
+  }
 }
 
 .background {

@@ -23,7 +23,7 @@ const RandomPage: NextPage = () => {
   }, [user]);
 
   useEffect(() => {
-    console.log(room.replaceAll(" ", "-").toLowerCase());
+    console.log(room.replaceAll(" ", "-"));
   }, [room]);
 
   const chooseRoomHandler = (lang: string) => {
@@ -52,12 +52,12 @@ const RandomPage: NextPage = () => {
                   />
                 </span>
               </div>
-              <Link href="/random/call">
+              <Link href={`/random/call?room=${room}`}>
                 <a>
                   <button className="btn w-32">call</button>
                 </a>
               </Link>
-              <Link href="/random/chat">
+              <Link href={`/random/chat?room=${room}`}>
                 <a>
                   <button className="btn w-32">chat</button>
                 </a>

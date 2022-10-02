@@ -8,7 +8,8 @@ import { defaultGetServerSidePropFunc, socket } from "../../utils/constants";
 import PrivateRoute from "../../utils/PrivateRoute";
 
 const RandomChatPage: NextPage = () => {
-  const { auth, user } = useAppSelector((state) => state.userReducer);
+  const user = useAppSelector((state) => state.userReducer.user);
+  const [findingRandomUser, setFindingRandomUser] = useState(true);
   const [matchUser, setMatchUser] = useState("");
   const [messages, setMessages] = useState<any>([]);
   const [inputMsg, setInputMsg] = useState("");
@@ -29,7 +30,7 @@ const RandomChatPage: NextPage = () => {
     socket.on("found-random-chat-user", (id) => {
       if (id) {
         socket.off("found-random-chat-user");
-        console.log(`match to ${id}`);
+        setFindingRandomUser(false);
         timeoutId.forEach((_id: any) => {
           clearTimeout(_id);
         });
@@ -44,7 +45,8 @@ const RandomChatPage: NextPage = () => {
     const timeout = setTimeout(() => {
       socket.off("found-random-chat-user");
       console.log("can't find user");
-    }, 5000);
+      setFindingRandomUser(false);
+    }, 10000);
     setTimeoutId([...timeoutId, timeout]);
     return () => {
       socket.off("found-random-chat-user");
@@ -76,6 +78,16 @@ const RandomChatPage: NextPage = () => {
       <WithNavLayout>
         <div className="flex flex-col h-full p-4 w-full gap-2">
           <div className="overflow-auto px-2">
+            {matchUser === "" && findingRandomUser && (
+              <div className="absolute left-1/2 -translate-x-1/2 z-10 card px-5 py-2 w-max">
+                <p>Finding someone. please wait ...</p>
+              </div>
+            )}
+            {matchUser === "" && findingRandomUser === false && (
+              <div className="absolute left-1/2 -translate-x-1/2 z-10 card px-5 py-2 w-max">
+                <p>User disconnected</p>
+              </div>
+            )}
             {messages.map((data: any, i: number) => (
               <div
                 className={data.id === matchUser ? "user-chat" : "sender-chat"}
@@ -94,7 +106,8 @@ const RandomChatPage: NextPage = () => {
               }
               suppressContentEditableWarning={true}
               ref={msgRef}
-              contentEditable={true}></div>
+              contentEditable={true}
+            />
             <button
               onClick={sendMessageHandler}
               className="btn"

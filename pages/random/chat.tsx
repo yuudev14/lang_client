@@ -10,7 +10,7 @@ import PrivateRoute from "../../utils/PrivateRoute";
 const RandomChatPage: NextPage = () => {
   const user = useAppSelector((state) => state.userReducer.user);
   const [findingRandomUser, setFindingRandomUser] = useState(true);
-  const [matchUser, setMatchUser] = useState("");
+  const matchUser = useRef<string>("");
   const [messages, setMessages] = useState<any>([]);
   const [inputMsg, setInputMsg] = useState("");
   const [timeoutId, setTimeoutId] = useState<any>([]);
@@ -18,45 +18,22 @@ const RandomChatPage: NextPage = () => {
   const msgRef = useRef<HTMLDivElement>(null);
   const divBottomRef = useRef<HTMLDivElement>(null);
   const { room } = router.query;
+  const x = useRef<any>();
 
   useEffect(() => {
     socket.connect();
     socket.emit("join-random-chat", room);
-    socket.emit("find-random-chat-user", {
-      room,
-      user_id: user._id,
-    });
-    socket.emit("waiting random chat match", room);
+    findRandomUserHandler();
     // find random user
-    socket.on("found-random-chat-user", (id) => {
-      if (id) {
-        // if user exist, set match user id and set finding random user to false
-        socket.off("found-random-chat-user");
-        setFindingRandomUser(false);
 
-        // clear out all timeout ids
-        timeoutId.forEach((_id: any) => {
-          clearTimeout(_id);
-        });
-        setMatchUser(id);
-      } else {
-        socket.emit("waiting random chat match", room);
-      }
-    });
     socket.on("receive-message-random-chat", (data) => {
       setMessages((messages: any) => [...messages, data]);
     });
     socket.on("random-user-left", () => {
-      setMatchUser("");
+      matchUser.current = "";
       setMessages([]);
     });
 
-    // stop finding random user after 10 seconds of waiting
-    const timeout = setTimeout(() => {
-      socket.off("found-random-chat-user");
-      setFindingRandomUser(false);
-    }, 10000);
-    setTimeoutId([...timeoutId, timeout]);
     return () => {
       // remove listeners
       socket.off("found-random-chat-user");
@@ -64,7 +41,7 @@ const RandomChatPage: NextPage = () => {
       socket.off("random-user-left");
       socket.emit("disconnect-random-chat", {
         room,
-        user: matchUser,
+        user: matchUser.current,
       });
       socket.disconnect();
     };
@@ -78,7 +55,7 @@ const RandomChatPage: NextPage = () => {
     if (matchUser && inputMsg) {
       const msgData = {
         msg: inputMsg,
-        id: matchUser,
+        id: matchUser.current,
       };
       setMessages((messages: any) => [...messages, msgData]);
       setInputMsg("");
@@ -89,14 +66,46 @@ const RandomChatPage: NextPage = () => {
   };
 
   const leftMessageHandler = () => {
-    if (matchUser) {
+    if (matchUser.current) {
       setMessages([]);
-      setMatchUser("");
       socket.emit("disconnect-random-chat", {
         room: "",
-        user: matchUser,
+        user: matchUser.current,
       });
+      matchUser.current = "";
     }
+  };
+
+  const findRandomUserHandler = () => {
+    setFindingRandomUser(true);
+    socket.emit("find-random-chat-user", {
+      room,
+      user_id: user._id,
+    });
+    socket.emit("waiting random chat match", room);
+    // stop finding random user after 10 seconds of waiting
+    const timeout = setTimeout(() => {
+      socket.off("found-random-chat-user");
+      setFindingRandomUser(false);
+    }, 5000);
+    setTimeoutId((timeouts: any) => [...timeouts, timeout]);
+
+    socket.on("found-random-chat-user", (id) => {
+      if (id) {
+        // if user exist, set match user id and set finding random user to false
+        socket.off("found-random-chat-user");
+        setFindingRandomUser(false);
+
+        // clear out all timeout ids
+        timeoutId.forEach((_id: any) => {
+          clearTimeout(_id);
+        });
+        matchUser.current = id;
+        x.current = "sdfsdf";
+      } else {
+        socket.emit("waiting random chat match", room);
+      }
+    });
   };
 
   return (
@@ -104,21 +113,23 @@ const RandomChatPage: NextPage = () => {
       <WithNavLayout>
         <div className="flex flex-col h-full p-4 w-full gap-2">
           <div className="overflow-auto px-2">
-            {matchUser === "" && findingRandomUser && (
+            {matchUser.current === "" && findingRandomUser && (
               <div className="absolute left-1/2 -translate-x-1/2 z-10 card px-5 py-2 w-max">
                 <p>Finding someone. please wait ...</p>
               </div>
             )}
-            {matchUser === "" && findingRandomUser === false && (
+            {matchUser.current === "" && findingRandomUser === false && (
               <div className="absolute left-1/2 -translate-x-1/2 z-10 card px-5 py-2 w-max">
                 <p>User disconnected</p>
               </div>
             )}
             {messages.map((data: any, i: number) => (
               <div
-                className={data.id === matchUser ? "user-chat" : "sender-chat"}
+                className={
+                  data.id === matchUser.current ? "user-chat" : "sender-chat"
+                }
                 key={i}>
-                <p>{data.id === matchUser ? "me" : "stranger"}:</p>
+                <p>{data.id === matchUser.current ? "me" : "stranger"}:</p>
                 <div>{data.msg}</div>
               </div>
             ))}
@@ -133,19 +144,25 @@ const RandomChatPage: NextPage = () => {
               suppressContentEditableWarning={true}
               ref={msgRef}
               contentEditable={
-                matchUser !== "" && !findingRandomUser ? true : false
+                matchUser.current !== "" && !findingRandomUser ? true : false
               }
             />
-            <button
-              onClick={leftMessageHandler}
-              className="btn"
-              disabled={matchUser !== "" ? false : true}>
-              Disable
-            </button>
+            {matchUser.current === "" && !findingRandomUser ? (
+              <button onClick={findRandomUserHandler} className="btn">
+                Find
+              </button>
+            ) : (
+              <button
+                onClick={leftMessageHandler}
+                className="btn"
+                disabled={matchUser.current !== "" ? false : true}>
+                Left
+              </button>
+            )}
             <button
               onClick={sendMessageHandler}
               className="btn"
-              disabled={matchUser !== "" ? false : true}>
+              disabled={matchUser.current !== "" ? false : true}>
               Send
             </button>
           </div>

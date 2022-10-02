@@ -27,10 +27,14 @@ const RandomChatPage: NextPage = () => {
       user_id: user._id,
     });
     socket.emit("waiting random chat match", room);
+    // find random user
     socket.on("found-random-chat-user", (id) => {
       if (id) {
+        // if user exist, set match user id and set finding random user to false
         socket.off("found-random-chat-user");
         setFindingRandomUser(false);
+
+        // clear out all timeout ids
         timeoutId.forEach((_id: any) => {
           clearTimeout(_id);
         });
@@ -42,16 +46,26 @@ const RandomChatPage: NextPage = () => {
     socket.on("receive-message-random-chat", (data) => {
       setMessages((messages: any) => [...messages, data]);
     });
+    socket.on("random-user-left", () => {
+      setMatchUser("");
+      setMessages([]);
+    });
+
+    // stop finding random user after 10 seconds of waiting
     const timeout = setTimeout(() => {
       socket.off("found-random-chat-user");
-      console.log("can't find user");
       setFindingRandomUser(false);
     }, 10000);
     setTimeoutId([...timeoutId, timeout]);
     return () => {
+      // remove listeners
       socket.off("found-random-chat-user");
       socket.off("receive-message-random-chat");
-      socket.emit("disconnect-random-chat", room);
+      socket.off("random-user-left");
+      socket.emit("disconnect-random-chat", {
+        room,
+        user: matchUser,
+      });
       socket.disconnect();
     };
   }, []);
@@ -73,6 +87,18 @@ const RandomChatPage: NextPage = () => {
       socket.emit("send-message-random-chat", msgData);
     }
   };
+
+  const leftMessageHandler = () => {
+    if (matchUser) {
+      setMessages([]);
+      setMatchUser("");
+      socket.emit("disconnect-random-chat", {
+        room: "",
+        user: matchUser,
+      });
+    }
+  };
+
   return (
     <MainLayout>
       <WithNavLayout>
@@ -106,13 +132,21 @@ const RandomChatPage: NextPage = () => {
               }
               suppressContentEditableWarning={true}
               ref={msgRef}
-              contentEditable={true}
+              contentEditable={
+                matchUser !== "" && !findingRandomUser ? true : false
+              }
             />
+            <button
+              onClick={leftMessageHandler}
+              className="btn"
+              disabled={matchUser !== "" ? false : true}>
+              Disable
+            </button>
             <button
               onClick={sendMessageHandler}
               className="btn"
               disabled={matchUser !== "" ? false : true}>
-              send
+              Send
             </button>
           </div>
         </div>

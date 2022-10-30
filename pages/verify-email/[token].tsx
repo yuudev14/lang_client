@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { get, post } from "../../utils/requests";
 import { useRouter } from "next/router";
 import axios from "axios";
+import { useAppDispatch } from "../../hooks/reduxhook";
+import { verifyEmailAction } from "../../store/slicers/user/actions";
 
 const Verify = () => {
   const [verify, setVerify] = useState<undefined | boolean>(undefined);
   const [error, setError] = useState("");
   const router = useRouter();
+  const dispatch = useAppDispatch();
   const { token } = router.query;
 
   useEffect(() => {
     if (token !== undefined) {
       (async () => {
         try {
-          const verifyResponse = await post(`/api/auth/verify-email/${token}`);
+          dispatch(verifyEmailAction(token as string));
+
           setVerify(true);
           setTimeout(() => {
             router.push("/welcome");
@@ -27,7 +30,7 @@ const Verify = () => {
         }
       })();
     }
-  }, [router, token]);
+  }, [router, token, dispatch]);
   return (
     <main>
       <div className="card px-5 max-w-lg w-[80%] py-10 absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/4 flex flex-col gap-8 items-center">

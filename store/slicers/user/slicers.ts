@@ -4,6 +4,7 @@ import {
   loginAction,
   registerAction,
   updateUserAction,
+  verifyEmailAction,
   verifyTokenAction,
 } from "./actions";
 
@@ -75,6 +76,12 @@ const userSlicer = createSlice({
     builder.addCase(updateUserAction.fulfilled, fulfilled);
 
     builder.addCase(updateUserAction.rejected, rejected);
+    // verify email
+    builder.addCase(verifyEmailAction.pending, pending);
+
+    builder.addCase(verifyEmailAction.fulfilled, fulfilled);
+
+    builder.addCase(verifyEmailAction.rejected, rejected);
   },
 });
 

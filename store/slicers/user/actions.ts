@@ -66,3 +66,18 @@ export const updateUserAction = createAsyncThunk(
     }
   }
 );
+
+export const verifyEmailAction = createAsyncThunk(
+  "user/verifyEmailAction",
+  async (token: string, { rejectWithValue }) => {
+    try {
+      const response = await post(`/api/auth/verify-email/${token}`);
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.log(error.response?.data);
+        return rejectWithValue(error.response?.data);
+      }
+    }
+  }
+);

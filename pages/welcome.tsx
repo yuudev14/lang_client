@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import { GetServerSideProps } from "next";
 import { useEffect, useState } from "react";
 import Header from "../components/common/Header";
 import MainLayout from "../components/Layout/MainLayout";
@@ -6,6 +7,8 @@ import FinishWelcomeStep from "../components/welcome/FinishWelcomeStep";
 import LanguageForm from "../components/welcome/LanguageForm";
 import UserNameForm from "../components/welcome/UserNameForm";
 import { useAppSelector } from "../hooks/reduxhook";
+import { defaultGetServerSidePropFunc } from "../utils/constants";
+import PrivateRoute from "../utils/PrivateRoute";
 
 const Welcome = () => {
   const numOfSteps = 4;
@@ -13,9 +16,9 @@ const Welcome = () => {
   const { user, loading, auth } = useAppSelector((state) => state.userReducer);
   useEffect(() => {
     let step: number;
-    if (!user.firstName && !user.lastName) {
+    if (!user.firstName || !user.lastName) {
       step = 1;
-    } else if (user.fluent_language?.length == -0) {
+    } else if (user.fluent_language?.length == 0) {
       step = 2;
     } else if (user.language_to_study?.length === 0) {
       step = 3;
@@ -64,5 +67,7 @@ const Welcome = () => {
     </MainLayout>
   );
 };
-
+// export const getServerSideProps: GetServerSideProps = PrivateRoute(
+//   defaultGetServerSidePropFunc
+// );
 export default Welcome;

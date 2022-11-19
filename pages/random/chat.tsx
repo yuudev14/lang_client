@@ -22,7 +22,7 @@ const RandomChatPage: NextPage = () => {
 
   useEffect(() => {
     socket.connect();
-    socket.emit("join-random-chat", room);
+    socket.emit("join_random_chat", room);
     findRandomUserHandler();
     // find random user
 
@@ -39,7 +39,7 @@ const RandomChatPage: NextPage = () => {
       socket.off("found-random-chat-user");
       socket.off("receive-message-random-chat");
       socket.off("random-user-left");
-      socket.emit("disconnect-random-chat", {
+      socket.emit("disconnect_random_chat", {
         room,
         user: matchUser.current,
       });
@@ -78,11 +78,11 @@ const RandomChatPage: NextPage = () => {
 
   const findRandomUserHandler = () => {
     setFindingRandomUser(true);
-    socket.emit("find-random-chat-user", {
+    socket.emit("find_random_chat_user", {
       room,
       user_id: user._id,
     });
-    socket.emit("waiting random chat match", room);
+    socket.emit("waiting_random_chat_match", room);
     // stop finding random user after 10 seconds of waiting
     const timeout = setTimeout(() => {
       socket.off("found-random-chat-user");
@@ -91,6 +91,7 @@ const RandomChatPage: NextPage = () => {
     setTimeoutId((timeouts: any) => [...timeouts, timeout]);
 
     socket.on("found-random-chat-user", (id) => {
+      console.log("yu");
       if (id) {
         // if user exist, set match user id and set finding random user to false
         socket.off("found-random-chat-user");
@@ -103,7 +104,7 @@ const RandomChatPage: NextPage = () => {
         matchUser.current = id;
         x.current = "sdfsdf";
       } else {
-        socket.emit("waiting random chat match", room);
+        socket.emit("waiting_random_chat_match", room);
       }
     });
   };

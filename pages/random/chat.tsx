@@ -61,14 +61,14 @@ const RandomChatPage: NextPage = () => {
       setInputMsg("");
       msgRef.current!.textContent = "";
       msgRef.current!.focus();
-      socket.emit("send-message-random-chat", msgData);
+      socket.emit("send_message_random_chat", msgData);
     }
   };
 
   const leftMessageHandler = () => {
     if (matchUser.current) {
       setMessages([]);
-      socket.emit("disconnect-random-chat", {
+      socket.emit("disconnect_random_chat", {
         room: "",
         user: matchUser.current,
       });
@@ -91,7 +91,6 @@ const RandomChatPage: NextPage = () => {
     setTimeoutId((timeouts: any) => [...timeouts, timeout]);
 
     socket.on("found-random-chat-user", (id) => {
-      console.log("yu");
       if (id) {
         // if user exist, set match user id and set finding random user to false
         socket.off("found-random-chat-user");

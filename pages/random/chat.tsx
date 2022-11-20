@@ -1,8 +1,10 @@
 import type { GetServerSideProps, NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
+import MessageBox from "../../components/common/MessageBox";
 import MainLayout from "../../components/Layout/MainLayout";
 import WithNavLayout from "../../components/Layout/WithNavLayout";
+import RandomChatOptions from "../../components/pages/random/chat/RandomChatOptions";
 import { useAppSelector } from "../../hooks/reduxhook";
 import { defaultGetServerSidePropFunc, socket } from "../../utils/constants";
 import PrivateRoute from "../../utils/PrivateRoute";
@@ -111,7 +113,8 @@ const RandomChatPage: NextPage = () => {
   return (
     <MainLayout>
       <WithNavLayout>
-        <div className="flex flex-col h-full p-4 w-full gap-2">
+        <div className="flex flex-col h-full px-4 w-full gap-2">
+          <RandomChatOptions />
           <div className="overflow-auto px-2">
             {matchUser.current === "" && findingRandomUser && (
               <div className="absolute left-1/2 -translate-x-1/2 z-10 card px-5 py-2 w-max">
@@ -124,29 +127,11 @@ const RandomChatPage: NextPage = () => {
               </div>
             )}
             {messages.map((data: any, i: number) => (
-              <div
-                className={
-                  data.id === matchUser.current ? "user-chat" : "sender-chat"
-                }
-                key={i}>
-                <p>{data.id === matchUser.current ? "me" : "stranger"}:</p>
-                <div>{data.msg}</div>
-              </div>
+              <MessageBox key={i} data={data} matchUser={matchUser} />
             ))}
             <div ref={divBottomRef}></div>
           </div>
           <div className="flex gap-2 mt-auto items-end">
-            <div
-              className="max-h-36 outline-none overflow-auto flex-1 border-4 py-2 px-3 rounded-2xl"
-              onInput={(e) =>
-                setInputMsg(e.currentTarget.textContent!.toString())
-              }
-              suppressContentEditableWarning={true}
-              ref={msgRef}
-              contentEditable={
-                matchUser.current !== "" && !findingRandomUser ? true : false
-              }
-            />
             {matchUser.current === "" && !findingRandomUser ? (
               <button onClick={findRandomUserHandler} className="btn">
                 Find
@@ -159,12 +144,30 @@ const RandomChatPage: NextPage = () => {
                 Left
               </button>
             )}
-            <button
+            <div
+              className="max-h-36 outline-none overflow-auto flex-1 border-4 py-2 px-3 rounded-2xl"
+              onInput={(e) =>
+                setInputMsg(e.currentTarget.textContent!.toString())
+              }
+              onKeyDown={(e) => {
+                if (e.keyCode === 13) {
+                  sendMessageHandler();
+                  msgRef.current!.textContent = "";
+                }
+              }}
+              suppressContentEditableWarning={true}
+              ref={msgRef}
+              contentEditable={
+                matchUser.current !== "" && !findingRandomUser ? true : false
+              }
+            />
+
+            {/* <button
               onClick={sendMessageHandler}
               className="btn"
               disabled={matchUser.current !== "" ? false : true}>
               Send
-            </button>
+            </button> */}
           </div>
         </div>
       </WithNavLayout>

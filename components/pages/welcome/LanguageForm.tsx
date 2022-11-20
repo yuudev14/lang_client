@@ -1,8 +1,8 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../hooks/reduxhook";
-import { updateUserAction } from "../../store/slicers/user/actions";
-import { languages } from "../../utils/constants";
+import { useAppDispatch, useAppSelector } from "../../../hooks/reduxhook";
+import { updateUserAction } from "../../../store/slicers/user/actions";
+import { languages } from "../../../utils/constants";
 type LanguageFormProps = {
   type: "language_to_study" | "fluent_language";
 };

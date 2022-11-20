@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../hooks/reduxhook";
-import { updateUserAction } from "../../store/slicers/user/actions";
+import { useAppDispatch, useAppSelector } from "../../../hooks/reduxhook";
+import { updateUserAction } from "../../../store/slicers/user/actions";
 
 const UserNameForm = () => {
   const [data, setData] = useState({

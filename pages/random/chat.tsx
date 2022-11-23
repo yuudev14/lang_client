@@ -144,15 +144,25 @@ const RandomChatPage: NextPage = () => {
                 Left
               </button>
             )}
-            <div
+            <p
               className="max-h-36 outline-none overflow-auto flex-1 border-4 py-2 px-3 rounded-2xl"
               onInput={(e) =>
                 setInputMsg(e.currentTarget.textContent!.toString())
               }
-              onKeyDown={(e) => {
+              onKeyDownCapture={(e) => {
+                console.log(msgRef.current!.textContent);
                 if (e.keyCode === 13) {
                   sendMessageHandler();
-                  msgRef.current!.textContent = "";
+                }
+              }}
+              onKeyUp={(e) => {
+                console.log(msgRef.current!.textContent);
+                if (e.keyCode === 13) {
+                  const children = msgRef.current!.children;
+                  console.log(children);
+                  for (let node of children) {
+                    msgRef.current!.removeChild(node);
+                  }
                 }
               }}
               suppressContentEditableWarning={true}

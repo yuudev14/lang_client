@@ -3,17 +3,16 @@ import { IoMdOptions } from "react-icons/io";
 import { languages } from "../../../../utils/constants";
 import random_chat_style from "../../../../styles/random/chat/random_option.module.scss";
 
-const RandomChatOptions = () => {
-  const [optionState, setOptionState] = useState(false);
-  const [language, setLanguage] = useState("");
+interface RandomChatOptionsProps {
+  language: string;
+  setLanguage: Function;
+}
 
-  useEffect(() => {
-    // check if local storage exist
-    const currTranslateLang = localStorage.getItem("translate");
-    if (currTranslateLang) {
-      setLanguage(currTranslateLang);
-    }
-  }, []);
+const RandomChatOptions = ({
+  language,
+  setLanguage,
+}: RandomChatOptionsProps) => {
+  const [optionState, setOptionState] = useState(false);
 
   // open and close sub option
   const open_sub_option = (id: string) => {

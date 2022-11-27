@@ -20,8 +20,18 @@ const RandomChatPage: NextPage = () => {
   const msgRef = useRef<HTMLDivElement>(null);
   const divBottomRef = useRef<HTMLDivElement>(null);
   const { room } = router.query;
-  const x = useRef<any>();
+  const [language, setLanguage] = useState("");
 
+  // language on mount
+  useEffect(() => {
+    // check if local storage exist
+    const currTranslateLang = localStorage.getItem("translate");
+    if (currTranslateLang) {
+      setLanguage(currTranslateLang);
+    }
+  }, []);
+
+  // socket action on mount
   useEffect(() => {
     socket.connect();
     socket.emit("join_random_chat", room);
@@ -103,7 +113,6 @@ const RandomChatPage: NextPage = () => {
           clearTimeout(_id);
         });
         matchUser.current = id;
-        x.current = "sdfsdf";
       } else {
         socket.emit("waiting_random_chat_match", room);
       }
@@ -114,7 +123,7 @@ const RandomChatPage: NextPage = () => {
     <MainLayout>
       <WithNavLayout>
         <div className="flex flex-col h-full px-4 w-full gap-2">
-          <RandomChatOptions />
+          <RandomChatOptions language={language} setLanguage={setLanguage} />
           <div className="overflow-auto px-2">
             {matchUser.current === "" && findingRandomUser && (
               <div className="absolute left-1/2 -translate-x-1/2 z-10 card px-5 py-2 w-max">

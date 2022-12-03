@@ -33,6 +33,7 @@ const RandomChatPage: NextPage = () => {
   const { room } = router.query;
   const [language, setLanguage] = useState("");
   const langRef = useRef<string>(language);
+  const [translating, setTranslating] = useState(false);
 
   // language on mount
   useEffect(() => {
@@ -51,7 +52,6 @@ const RandomChatPage: NextPage = () => {
     // find random user
 
     socket.on("receive-message-random-chat", async (data) => {
-      console.log("yu", language);
       if (langRef.current) {
         data = await translateMessage(data);
       }
@@ -96,10 +96,12 @@ const RandomChatPage: NextPage = () => {
   }, [messages]);
 
   const translateMessage = async (msg: messageType | messageType[]) => {
+    setTranslating(true);
     const translateResponse = await post(
       `/api/translate/${langCode[langRef.current as keyof typeof langCode]}`,
       msg
     );
+    setTranslating(false);
     return translateResponse.data;
   };
 
@@ -177,7 +179,12 @@ const RandomChatPage: NextPage = () => {
               </div>
             )}
             {messages.map((data: any, i: number) => (
-              <MessageBox key={i} data={data} matchUser={matchUser} />
+              <MessageBox
+                key={i}
+                data={data}
+                matchUser={matchUser}
+                translating={translating}
+              />
             ))}
             <div ref={divBottomRef}></div>
           </div>

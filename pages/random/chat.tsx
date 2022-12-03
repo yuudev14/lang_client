@@ -6,14 +6,25 @@ import MainLayout from "../../components/Layout/MainLayout";
 import WithNavLayout from "../../components/Layout/WithNavLayout";
 import RandomChatOptions from "../../components/pages/random/chat/RandomChatOptions";
 import { useAppSelector } from "../../hooks/reduxhook";
-import { defaultGetServerSidePropFunc, socket } from "../../utils/constants";
+import {
+  defaultGetServerSidePropFunc,
+  langCode,
+  socket,
+} from "../../utils/constants";
 import PrivateRoute from "../../utils/PrivateRoute";
+import translate from "google-translate-api";
+import { get, post } from "../../utils/requests";
 
+type messageType = {
+  sender: string;
+  msg: string;
+  translation?: string;
+};
 const RandomChatPage: NextPage = () => {
   const user = useAppSelector((state) => state.userReducer.user);
   const [findingRandomUser, setFindingRandomUser] = useState(true);
   const matchUser = useRef<string>("");
-  const [messages, setMessages] = useState<any>([]);
+  const [messages, setMessages] = useState<messageType[]>([]);
   const [inputMsg, setInputMsg] = useState("");
   const [timeoutId, setTimeoutId] = useState<any>([]);
   const router = useRouter();
@@ -38,7 +49,14 @@ const RandomChatPage: NextPage = () => {
     findRandomUserHandler();
     // find random user
 
-    socket.on("receive-message-random-chat", (data) => {
+    socket.on("receive-message-random-chat", async (data) => {
+      if (language) {
+        const translateResponse = await post(
+          `/api/translate/${langCode[language as keyof typeof langCode]}`,
+          data
+        );
+        data = translateResponse.data;
+      }
       setMessages((messages: any) => [...messages, data]);
     });
     socket.on("random-user-left", () => {
@@ -60,6 +78,23 @@ const RandomChatPage: NextPage = () => {
   }, []);
 
   useEffect(() => {
+    if (language) {
+      (async () => {
+        try {
+          const translateResponse = await post(
+            `/api/translate/${langCode[language as keyof typeof langCode]}`,
+            messages
+          );
+          const updatedMessages: messageType[] = translateResponse.data;
+          setMessages(updatedMessages);
+        } catch (error) {
+          console.log(error);
+        }
+      })();
+    }
+  }, [language]);
+
+  useEffect(() => {
     divBottomRef.current!.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
@@ -68,6 +103,7 @@ const RandomChatPage: NextPage = () => {
       const msgData = {
         msg: inputMsg,
         id: matchUser.current,
+        lang: language,
       };
       setMessages((messages: any) => [...messages, msgData]);
       setInputMsg("");

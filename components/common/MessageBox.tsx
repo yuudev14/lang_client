@@ -3,9 +3,16 @@ import React from "react";
 const MessageBox = ({ data, matchUser }: any) => {
   return (
     <div
-      className={data.id === matchUser.current ? "user-chat" : "sender-chat"}>
-      <p>{data.id === matchUser.current ? "me" : "stranger"}:</p>
-      <div>{data.msg}</div>
+      className={
+        data.sender === matchUser.current ? "sender-chat" : "user-chat"
+      }>
+      <p>{data.sender === matchUser.current ? "stranger" : "me"}:</p>
+      <div>
+        <p>{data.msg}</p>
+        <p className="mt-3 italic text-sm">
+          {"translation" in data && data.translation}
+        </p>
+      </div>
     </div>
   );
 };

@@ -35,11 +35,11 @@
 .sender-chat {
   @apply max-w-[50%] my-3;
   p {
-    @apply px-2 text-secondary;
+    @apply px-2 text-secondary text-white;
   }
 
   div {
-    @apply p-3 bg-secondary text-white rounded-2xl;
+    @apply p-3 bg-secondary rounded-2xl;
   }
 }
 

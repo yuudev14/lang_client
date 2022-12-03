@@ -12,8 +12,7 @@ import {
   socket,
 } from "../../utils/constants";
 import PrivateRoute from "../../utils/PrivateRoute";
-import translate from "google-translate-api";
-import { get, post } from "../../utils/requests";
+import { post } from "../../utils/requests";
 
 type messageType = {
   sender: string;
@@ -51,11 +50,7 @@ const RandomChatPage: NextPage = () => {
 
     socket.on("receive-message-random-chat", async (data) => {
       if (language) {
-        const translateResponse = await post(
-          `/api/translate/${langCode[language as keyof typeof langCode]}`,
-          data
-        );
-        data = translateResponse.data;
+        data = await translateMessage(data);
       }
       setMessages((messages: any) => [...messages, data]);
     });
@@ -81,11 +76,9 @@ const RandomChatPage: NextPage = () => {
     if (language) {
       (async () => {
         try {
-          const translateResponse = await post(
-            `/api/translate/${langCode[language as keyof typeof langCode]}`,
+          const updatedMessages: messageType[] = await translateMessage(
             messages
           );
-          const updatedMessages: messageType[] = translateResponse.data;
           setMessages(updatedMessages);
         } catch (error) {
           console.log(error);
@@ -97,6 +90,14 @@ const RandomChatPage: NextPage = () => {
   useEffect(() => {
     divBottomRef.current!.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
+
+  const translateMessage = async (msg: messageType | messageType[]) => {
+    const translateResponse = await post(
+      `/api/translate/${langCode[language as keyof typeof langCode]}`,
+      msg
+    );
+    return translateResponse.data;
+  };
 
   const sendMessageHandler = () => {
     if (matchUser && inputMsg) {

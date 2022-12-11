@@ -25,6 +25,7 @@ const RandomChatPage: NextPage = () => {
   const [findingRandomUser, setFindingRandomUser] = useState(true);
   const matchUser = useRef<string>("");
   const [messages, setMessages] = useState<messageType[]>([]);
+  const [langState, setLangState] = useState<boolean>(false);
   const [inputMsg, setInputMsg] = useState("");
   const [timeoutId, setTimeoutId] = useState<any>([]);
   const router = useRouter();
@@ -33,7 +34,7 @@ const RandomChatPage: NextPage = () => {
   const { room } = router.query;
   const [language, setLanguage] = useState("");
   const langRef = useRef<string>(language);
-  const [translating, setTranslating] = useState(false);
+  const [translating, setTranslating] = useState<boolean>(false);
 
   // language on mount
   useEffect(() => {
@@ -79,6 +80,7 @@ const RandomChatPage: NextPage = () => {
     if (language) {
       langRef.current = language;
       (async () => {
+        setLangState(true);
         try {
           const updatedMessages: messageType[] = await translateMessage(
             messages
@@ -87,6 +89,7 @@ const RandomChatPage: NextPage = () => {
         } catch (error) {
           console.log(error);
         }
+        setLangState(false);
       })();
     }
   }, [language]);
@@ -184,6 +187,7 @@ const RandomChatPage: NextPage = () => {
                 data={data}
                 matchUser={matchUser}
                 translating={translating}
+                langState={langState}
               />
             ))}
             <div ref={divBottomRef}></div>

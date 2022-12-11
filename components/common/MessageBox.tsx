@@ -1,7 +1,8 @@
 import React from "react";
 import { BiLoaderAlt } from "react-icons/bi";
 
-const MessageBox = ({ data, matchUser, translating }: any) => {
+const MessageBox = ({ data, matchUser, translating, langState }: any) => {
+  console.log(translating, langState);
   return (
     <div
       className={
@@ -10,10 +11,10 @@ const MessageBox = ({ data, matchUser, translating }: any) => {
       <p>{data.sender === matchUser.current ? "stranger" : "me"}:</p>
       <div>
         <p>{data.msg}</p>
-        {translating && <BiLoaderAlt />}
-        {!translating &&
-          "translation" in data &&
-          data.sender === matchUser.current && (
+        {translating && langState && <BiLoaderAlt />}
+        {"translation" in data &&
+          data.sender === matchUser.current &&
+          !langState && (
             <p className="mt-3 italic text-sm">{data.translation}</p>
           )}
       </div>

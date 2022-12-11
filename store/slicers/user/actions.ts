@@ -56,7 +56,7 @@ export const updateUserAction = createAsyncThunk(
   "user/updateUserAction",
   async (data: userType, { rejectWithValue }) => {
     try {
-      const response = await put("/api/user", data);
+      const response = await put("/api/user/", data);
       return response.data;
     } catch (error) {
       if (axios.isAxiosError(error)) {

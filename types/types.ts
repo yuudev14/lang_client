@@ -9,7 +9,7 @@ export type userType = {
   lastName?: string;
   email?: string;
   verified?: string | null;
-  _id?: string;
+  id?: string;
   fluent_language?: string[];
   language_to_study?: string[];
 };

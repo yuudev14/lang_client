@@ -12,7 +12,6 @@ import {
   socket,
 } from "../../utils/constants";
 import PrivateRoute from "../../utils/PrivateRoute";
-import translate from "google-translate-api";
 import { get, post } from "../../utils/requests";
 
 type messageType = {
@@ -55,6 +54,7 @@ const RandomChatPage: NextPage = () => {
     socket.on("receive-message-random-chat", async (data) => {
       if (langRef.current) {
         data = await translateMessage(data);
+        console.log(data);
       }
       setMessages((messages: any) => [...messages, data]);
     });
@@ -82,6 +82,7 @@ const RandomChatPage: NextPage = () => {
       (async () => {
         setLangState(true);
         try {
+          console.log(messages);
           const updatedMessages: messageType[] = await translateMessage(
             messages
           );
@@ -102,7 +103,7 @@ const RandomChatPage: NextPage = () => {
     setTranslating(true);
     const translateResponse = await post(
       `/api/translate/${langCode[langRef.current as keyof typeof langCode]}`,
-      msg
+      { data: msg }
     );
     setTranslating(false);
     return translateResponse.data;
@@ -138,7 +139,7 @@ const RandomChatPage: NextPage = () => {
     setFindingRandomUser(true);
     socket.emit("find_random_chat_user", {
       room,
-      user_id: user._id,
+      user_id: user.id,
     });
     socket.emit("waiting_random_chat_match", room);
     // stop finding random user after 10 seconds of waiting

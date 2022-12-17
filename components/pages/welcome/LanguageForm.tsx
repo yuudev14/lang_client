@@ -43,9 +43,9 @@ const LanguageForm = ({ type }: LanguageFormProps) => {
           <span
             key={_data.language}
             onClick={() => fluentLangHandler(_data.language)}
-            className={`mt-4 card p-2 cursor-pointer w-[150px] hover:bg-cyan-200 hover:border-cyan-300 hover:scale-110 transition ${
+            className={`mt-4 card p-2 cursor-pointer w-[150px] hover:bg-red-200 hover:border-red-300 hover:scale-110 transition ${
               fluentLang.includes(_data.language) &&
-              "border-cyan-300 !bg-cyan-200"
+              "border-red-300 !bg-red-200"
             }`}>
             <Image
               src={`/images/flags/${_data.language}-flag-icon.png`}

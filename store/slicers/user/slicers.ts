@@ -14,7 +14,7 @@ const initialUser = {
   lastName: "",
   email: "",
   verified: null,
-  _id: "",
+  id: "",
 };
 
 type userSlicerStatetype = {

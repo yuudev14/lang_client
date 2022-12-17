@@ -7,12 +7,12 @@ module.exports = {
   theme: {
     extend: {
       boxShadow: {
-        "button-not-clicked": "0 7px rgb(8 145 178)",
-        "button-clicked": "0 3px rgb(21 94 117)",
+        "button-not-clicked": "0 7px rgb(220,20,60)",
+        "button-clicked": "0 3px rgb(139,0,0)",
       },
       colors: {
-        primary: "#1bb0f8",
-        secondary: "#ff4d4c",
+        primary: "#ff4d4c",
+        secondary: "#1bb0f8",
         tertiary: "#ffc805",
       },
       fontFamily: {

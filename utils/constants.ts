@@ -8,6 +8,7 @@ export const defaultGetServerSidePropFunc = async () => {
 
 export const socket = io(`${process.env.NEXT_PUBLIC_SOCKET_SERVER}` as string, {
   autoConnect: false,
+  path: "/ws/socket.io",
 });
 
 export const langCode = {

@@ -103,7 +103,7 @@ const RandomChatPage: NextPage = () => {
     setTranslating(true);
     const translateResponse = await post(
       `/api/translate/${langCode[langRef.current as keyof typeof langCode]}`,
-      { data: msg }
+      msg
     );
     setTranslating(false);
     return translateResponse.data;
@@ -137,9 +137,10 @@ const RandomChatPage: NextPage = () => {
 
   const findRandomUserHandler = () => {
     setFindingRandomUser(true);
+    console.log(user._id);
     socket.emit("find_random_chat_user", {
       room,
-      user_id: user.id,
+      user_id: user._id,
     });
     socket.emit("waiting_random_chat_match", room);
     // stop finding random user after 10 seconds of waiting

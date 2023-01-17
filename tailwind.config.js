@@ -6,6 +6,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      // screens: {
+      //   layout_xs: "500px",
+      // },
       boxShadow: {
         "button-not-clicked": "0 7px rgb(220,20,60)",
         "button-clicked": "0 3px rgb(139,0,0)",

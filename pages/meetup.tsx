@@ -11,7 +11,7 @@ const MeetupPage: NextPage = () => {
   return (
     <MainLayout>
       <WithNavLayout>
-        <div className="flex gap-10">
+        <div className="flex gap-10 md:flex-row flex-col">
           <MeetupSearchForm />
           <TagSearch />
         </div>

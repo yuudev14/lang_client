@@ -4,7 +4,7 @@ import searchFormStyle from "../../../../styles/meetup/meetup_search_form.module
 
 const MeetupSearchForm = () => {
   return (
-    <div className="w-[55%]">
+    <div className="w-full md:w-[55%]">
       <h2 className="text-3xl font-bold mb-8">Meet and learn with someone!</h2>
       <form>
         <div

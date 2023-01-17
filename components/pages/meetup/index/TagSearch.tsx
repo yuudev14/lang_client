@@ -3,7 +3,7 @@ import React from "react";
 
 const TagSearch = () => {
   return (
-    <div className="w-[45%]">
+    <div className="w-full md:w-[55%]">
       <h2 className="text-3xl font-bold mb-8">See what's happening</h2>
       <ul className="flex flex-wrap gap-1">
         <li className="tags mt-1 cursor-pointer">Starting soon</li>

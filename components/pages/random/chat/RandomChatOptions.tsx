@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { IoMdOptions } from "react-icons/io";
 import { languages } from "../../../../utils/constants";
-import random_chat_style from "../../../../styles/random/chat/random_option.module.scss";
+import random_chat_style from "../../../../styles/meetup/index.module.scss";
 
 interface RandomChatOptionsProps {
   language: string;

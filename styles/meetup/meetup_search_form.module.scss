@@ -1,0 +1,5 @@
+.input_container {
+  &_box {
+    @apply flex items-center bg-white py-2 px-4 border w-1/2;
+  }
+}
